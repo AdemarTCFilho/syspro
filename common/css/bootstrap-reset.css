@@ -103,7 +103,7 @@ a:hover {
 }
 
 .modal-header {
-    background: #5A9599;
+    background: #0088cc;
     color: #fff;
     //  border-radius: 5px 5px 0 0;
     -webkit-border-radius: 5px 5px 0 0;
@@ -529,8 +529,8 @@ ul {
 }
 
 form{
-    border: 1px solid #ccc;
-    padding: 23px;
+    border: 1px solid #fff;
+    padding: 0px;
     background: #fff;  
     // box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
 }
@@ -612,6 +612,10 @@ table{
     color: #fff !important;
 }
 
+.reduzir-td{
+    width: 5% !important;
+}
+
 ul.sidebar-menu li a{
     font-size: 13px !important;
 }
@@ -630,10 +634,11 @@ a.logo {
 }
 
 .f_report{
-    background: #f1f1f1;
+        background: #cccccc;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
-    margin-right: 23px;
-    padding-bottom: 49px;
+    margin-right: 70px;
+    padding-bottom: 27px;
+    padding-top: 5px;
 }
 
 .modal-body form{
@@ -657,7 +662,7 @@ a.logo {
     padding: 3px;
     font-size: 21px;
     text-align: center;
-    width: 212px;
+    width: 250px;
     margin-left: 20px;
     margin-top: 10px;
 }

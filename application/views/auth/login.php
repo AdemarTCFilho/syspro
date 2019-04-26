@@ -46,7 +46,7 @@
             </style>
 
             <form class="form-signin" method="post" action="auth/login">
-                <h2 class="login form-signin-heading"><strong><?php echo $this->db->get('settings')->row()->title; ?></strong><br/><br/><img alt="" src="uploads/img_login.jpg" width="300" height="180"></h2>
+                <h2 class="login form-signin-heading"><strong><?php echo $this->db->get('settings')->row()->title; ?></strong><br/><br/><img alt="" src="uploads/img_login.png" width="300" height="180"></h2>
                 <div id="infoMessage"><?php echo $message; ?></div>
                 <div class="login-wrap">
                     <input type="text" class="form-control" name="identity" placeholder="User Email" autofocus>
@@ -55,8 +55,8 @@
 
 
 
-                    <p><a data-toggle="modal" href="#myModal"> Esqueceu a senha?</a></p>
-                    <!--     
+                    <!--<p><a data-toggle="modal" href="#myModal"> Esqueceu a senha?</a></p>
+                         
                           <label class="checkbox">
                               <input type="checkbox" value="remember-me"> Remember me
                               <span class="pull-right">

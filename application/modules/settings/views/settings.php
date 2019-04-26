@@ -93,7 +93,7 @@
                                                 echo $settings->invoice_logo;
                                             }
                                             ?>' placeholder="">
-                                            <span class="help-block">Recommended Size: 200x100</span>
+                                            <span class="help-block">Tamaño recomendado: 200x100</span>
                                         </div>
                                         <div class="form-group hidden">
                                             <label for="exampleInputEmail1">Buyer</label>

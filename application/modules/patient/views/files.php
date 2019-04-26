@@ -35,7 +35,7 @@
                                         <td><?php echo $medical_history->description; ?></td>
                                         <td class="no-print">
                                             <button type="button" class="btn btn-info btn-xs btn_width editbutton" data-toggle="modal" data-id="<?php echo $medical_history->id; ?>"><i class="fa fa-edit"></i> <?php echo lang('edit'); ?></button>   
-                                            <a class="btn btn-info btn-xs btn_width delete_button" href="medical_history/delete?id=<?php echo $medical_history->id; ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-trash-o"></i> <?php echo lang('delete'); ?></a>
+                                            <a class="btn btn-info btn-xs btn_width delete_button" href="medical_history/delete?id=<?php echo $medical_history->id; ?>" onclick="return confirm('Tem certeza de que deseja excluir este item?');"><i class="fa fa-trash-o"></i> <?php echo lang('delete'); ?></a>
                                         </td>
                                     </tr>
                                 <?php } ?>
@@ -74,7 +74,7 @@
                                               <a class="btn btn-info btn-xs btn_width" href="prescription/viewPrescription?id=<?php echo $prescription->id; ?>"><i class="fa fa-eye"> <?php echo lang('view'); ?> </i></a> 
                                             <?php if ($this->ion_auth->in_group('Doctor')) { ?>
                                                 <button type="button" class="btn btn-info btn-xs btn_width editPrescription" data-toggle="modal" data-id="<?php echo $prescription->id; ?>"><i class="fa fa-edit"></i> <?php echo lang('edit'); ?></button>   
-                                                <a class="btn btn-info btn-xs btn_width delete_button" href="prescription/delete?id=<?php echo $prescription->id; ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-trash-o"></i> <?php echo lang('delete'); ?></a>
+                                                <a class="btn btn-info btn-xs btn_width delete_button" href="prescription/delete?id=<?php echo $prescription->id; ?>" onclick="return confirm('Tem certeza de que deseja excluir este item?');"><i class="fa fa-trash-o"></i> <?php echo lang('delete'); ?></a>
                                             <?php } ?>
                                         </td>
                                     </tr>
@@ -101,7 +101,7 @@
                         <div class="panel-body">
                             <?php foreach ($patient_materials as $patient_material) { ?>
                                 <div class="panel col-md-3"  style="height: 200px; margin-right: 5px;">
-                                    <a class="btn btn-info btn-xs btn_width" href="patient/deletePatientMaterial?id=<?php echo $patient_material->id; ?>"onclick="return confirm('Are you sure you want to delete this item?');"> X </a>
+                                    <a class="btn btn-info btn-xs btn_width" href="patient/deletePatientMaterial?id=<?php echo $patient_material->id; ?>"onclick="return confirm('Tem certeza de que deseja excluir este item?');"> X </a>
                                     <div class="post-info">
                                         <img src="<?php echo $patient_material->url; ?>" width="100%">
                                     </div>
@@ -260,7 +260,7 @@ if ($this->ion_auth->in_group('Doctor')) {
                     <div class="form-group col-md-6">
                         <label for="exampleInputEmail1"><?php echo lang('patient'); ?></label>
                         <select class="form-control m-bot15" name="patient" value=''> 
-                            <option value="">Select .....</option>
+                            <option value="">Selecionar .....</option>
                             <?php foreach ($patients as $patientss) { ?>
                                 <option value="<?php echo $patientss->id; ?>" <?php
                                 if (!empty($prescription->patient)) {
@@ -327,7 +327,7 @@ if ($this->ion_auth->in_group('Doctor')) {
                     <div class="form-group col-md-6">
                         <label for="exampleInputEmail1"><?php echo lang('patient'); ?></label>
                         <select class="form-control m-bot15" name="patient" value=''> 
-                            <option value="">Select .....</option>
+                            <option value="">Selecionar .....</option>
                             <?php foreach ($patients as $patientss) { ?>
                                 <option value="<?php echo $patientss->id; ?>" <?php
                                 if (!empty($prescription->patient)) {

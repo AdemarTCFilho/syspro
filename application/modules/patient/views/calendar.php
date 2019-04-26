@@ -165,7 +165,7 @@ if (!empty($doctor_id)) {
                     <div class="form-group col-md-6">
                         <label for="exampleInputEmail1"><?php echo lang('patient'); ?></label>
                         <select class="form-control m-bot15" name="patient" value=''> 
-                            <option value="">Select .....</option>
+                            <option value="">Selecionar .....</option>
 <?php foreach ($patients as $patientss) { ?>
                                 <option value="<?php echo $patientss->id; ?>" <?php
     if (!empty($prescription->patient)) {
@@ -232,7 +232,7 @@ if (!empty($doctor_id)) {
                     <div class="form-group col-md-6">
                         <label for="exampleInputEmail1"><?php echo lang('patient'); ?></label>
                         <select class="form-control m-bot15" name="patient" value=''> 
-                            <option value="">Select .....</option>
+                            <option value="">Selecionar .....</option>
 <?php foreach ($patients as $patientss) { ?>
                                 <option value="<?php echo $patientss->id; ?>" <?php
     if (!empty($prescription->patient)) {

@@ -19,7 +19,7 @@ class Doctor extends MX_Controller {
         if (!$this->ion_auth->logged_in()) {
             redirect('auth/login', 'refresh');
         }
-        if (!$this->ion_auth->in_group(array('admin', 'Accountant'))) {
+        if (!$this->ion_auth->in_group(array('admin', 'Accountant', 'Laboratorist', 'Receptionist'))) {
             redirect('home/permission');
         }
     }
@@ -51,6 +51,8 @@ class Doctor extends MX_Controller {
         $phone = $this->input->post('phone');
         $department = $this->input->post('department');
         $profile = $this->input->post('profile');
+        $crm = $this->input->post('crm');
+        $consultorio = $this->input->post('consultorio');
 
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
@@ -68,9 +70,12 @@ class Doctor extends MX_Controller {
         $this->form_validation->set_rules('phone', 'Phone', 'trim|required|min_length[5]|max_length[50]|xss_clean');
         // Validating Department Field   
         $this->form_validation->set_rules('department', 'Department', 'trim|required|min_length[5]|max_length[500]|xss_clean');
-        // Validating Phone Field           
+        // Validating Profile Field           
         $this->form_validation->set_rules('profile', 'Profile', 'trim|required|min_length[5]|max_length[50]|xss_clean');
-
+        // Validating CRM Field           
+        $this->form_validation->set_rules('crm', 'CRM', 'trim|required|min_length[5]|max_length[50]|xss_clean');
+        // Validating Consultório Field           
+        $this->form_validation->set_rules('consultorio', 'Consultório', 'trim|required|min_length[5]|max_length[50]|xss_clean');
 
         if ($this->form_validation->run() == FALSE) {
             if (!empty($id)) {
@@ -125,7 +130,9 @@ class Doctor extends MX_Controller {
                     'address' => $address,
                     'phone' => $phone,
                     'department' => $department,
-                    'profile' => $profile
+                    'profile' => $profile,
+                    'crm' => $crm,
+                    'consultorio' => $consultorio
                 );
             } else {
                 //$error = array('error' => $this->upload->display_errors());
@@ -136,13 +143,15 @@ class Doctor extends MX_Controller {
                     'address' => $address,
                     'phone' => $phone,
                     'department' => $department,
-                    'profile' => $profile
+                    'profile' => $profile,
+                    'crm' => $crm,
+                    'consultorio' => $consultorio
                 );
             }
             $username = $this->input->post('name');
             if (empty($id)) {     // Adding New Doctor
                 if ($this->ion_auth->email_check($email)) {
-                    $this->session->set_flashdata('feedback', 'This Email Address Is Already Registered');
+                    $this->session->set_flashdata('feedback', 'Este endereço de e-mail já está registrado');
                     redirect('doctor/addNewView');
                 } else {
                     $dfg = 4;

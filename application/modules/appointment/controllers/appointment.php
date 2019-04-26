@@ -12,10 +12,12 @@ class Appointment extends MX_Controller {
         $this->load->library('session');
         $this->load->library('form_validation');
         $this->load->model('appointment_model');
+        $this->load->model('prescription/prescription_model');
         $this->load->model('doctor/doctor_model');
         $this->load->model('patient/patient_model');
         $this->load->model('sms/sms_model');
         $this->load->model('settings/settings_model');
+        $this->load->model('prescription/prescription_model');
         $this->load->library('upload');
         $language = $this->db->get('settings')->row()->language;
         $this->lang->load('system_syntax', $language);
@@ -23,7 +25,7 @@ class Appointment extends MX_Controller {
         if (!$this->ion_auth->logged_in()) {
             redirect('auth/login', 'refresh');
         }
-        if (!$this->ion_auth->in_group(array('admin', 'Nurse', 'Doctor', 'Patient', 'Receptionist'))) {
+        if (!$this->ion_auth->in_group(array('admin', 'Nurse', 'Doctor', 'Patient', 'Receptionist', 'Laboratorist'))) {
             redirect('home/permission');
         }
     }
@@ -118,6 +120,7 @@ class Appointment extends MX_Controller {
 
         $time_slot = $s_time . ' A ' . $e_time;
         $remarks = $this->input->post('remarks');
+        $status_appointment = $this->input->post('status_appointment');
 
         $sms = $this->input->post('sms');
 
@@ -142,24 +145,27 @@ class Appointment extends MX_Controller {
         $p_phone = $this->input->post('p_phone');
         $p_age = $this->input->post('p_age');
         $p_gender = $this->input->post('p_gender');
+        $p_cpf = $this->input->post('p_cpf');
         $patient_id = rand(10000, 1000000);
 
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 
         // Validating Name Field
-        $this->form_validation->set_rules('patient', 'Patient', 'trim|required|min_length[1]|max_length[100]|xss_clean');
+        $this->form_validation->set_rules('patient', 'Paciente', 'trim|required|min_length[1]|max_length[100]|xss_clean');
         // Validating Password Field
-        $this->form_validation->set_rules('doctor', 'Doctor', 'trim|required|min_length[1]|max_length[100]|xss_clean');
+        $this->form_validation->set_rules('doctor', 'Médico', 'trim|required|min_length[1]|max_length[100]|xss_clean');
 
         // Validating Email Field
-        $this->form_validation->set_rules('date', 'Date', 'trim|required|min_length[1]|max_length[100]|xss_clean');
+        $this->form_validation->set_rules('date', 'Data', 'trim|required|min_length[1]|max_length[100]|xss_clean');
         // Validating Email Field
-        $this->form_validation->set_rules('s_time', 'Start Time', 'trim|required|min_length[1]|max_length[100]|xss_clean');
+        $this->form_validation->set_rules('s_time', 'Hora de início', 'trim|required|min_length[1]|max_length[100]|xss_clean');
         // Validating Email Field
-        $this->form_validation->set_rules('e_time', 'End Time', 'trim|required|min_length[1]|max_length[100]|xss_clean');
+        $this->form_validation->set_rules('e_time', 'Fim do tempo', 'trim|required|min_length[1]|max_length[100]|xss_clean');
         // Validating Address Field   
-        $this->form_validation->set_rules('remarks', 'Remarks', 'trim|min_length[1]|max_length[1000]|xss_clean');
+        $this->form_validation->set_rules('remarks', 'Observações', 'trim|min_length[1]|max_length[1000]|xss_clean');
+        // Validating status_appointment Field   
+        $this->form_validation->set_rules('status_appointment', 'Situação', 'trim|min_length[1]|max_length[100]|xss_clean');
 
         if ($this->form_validation->run() == FALSE) {
             if (!empty($id)) {
@@ -184,12 +190,13 @@ class Appointment extends MX_Controller {
                     'sex' => $p_gender,
                     'age' => $p_age,
                     'add_date' => $add_date,
+                    'cpf' => $p_cpf,
                     'how_added' => 'from_appointment'
                 );
                 $username = $this->input->post('p_name');
                 // Adding New Patient
                 if ($this->ion_auth->email_check($p_email)) {
-                    $this->session->set_flashdata('feedback', 'Email Address of Patient Is Already Registered');
+                    $this->session->set_flashdata('feedback', 'Endereço de email do paciente já está registrado.');
                 } else {
                     $dfg = 5;
                     $this->ion_auth->register($username, $password, $p_email, $dfg);
@@ -214,9 +221,145 @@ class Appointment extends MX_Controller {
                 'time_slot' => $time_slot,
                 'remarks' => $remarks,
                 'add_date' => $add_date,
-                's_time_key' => $s_time_key
+                's_time_key' => $s_time_key,
+                'status_appointment' => $status_appointment
             );
             $username = $this->input->post('name');
+
+            $query = $this->db->get_where(appointment, array('date' => $date, 's_time' => $s_time, 'doctor' => $doctor));
+
+            $query_cpf = $this->db->get_where(patient, array('cpf' => $cpf));
+
+                    if (empty($id)) {     // Adding New department
+
+                        if ($query->num_rows() > 0) {
+                            $this->session->set_flashdata('feedback_data', 'Essa data e hora já foi agendada para esse médico!');
+                            redirect('appointment');
+                        } else { 
+
+                            $this->appointment_model->insertAppointment($data);
+                            if (!empty($sms)) {
+                                $this->load->library('../modules/sms/controllers/sms');
+                                $this->sms->sendSmsDuringAppointment($patient, $doctor, $date, $s_time, $e_time);
+                            }
+                            $this->session->set_flashdata('feedback', 'Adicionado');
+                        }
+
+                    } else { // Updating department
+                        $this->appointment_model->updateAppointment($id, $data);
+                        $this->session->set_flashdata('feedback_atualizar', 'Atualizada');
+                    }
+                    // Loading View
+                    redirect('appointment');
+
+
+
+
+                }
+            }
+
+            public function addNewStatus() {
+                $id = $this->input->post('id');
+                $patient = $this->input->post('patient');
+                $doctor = $this->input->post('doctor');
+                $date = $this->input->post('date');
+                if (!empty($date)) {
+                    $date = strtotime($date);
+                }
+                $s_time = $this->input->post('s_time');
+                $e_time = $this->input->post('e_time');
+
+                $time_slot = $s_time . ' A ' . $e_time;
+                $remarks = $this->input->post('remarks');
+                $status_appointment = $this->input->post('status_appointment');
+
+                $sms = $this->input->post('sms');
+
+
+                if ((empty($id))) {
+                    $add_date = date('m/d/y');
+                } else {
+                    $add_date = $this->db->get_where('appointment', array('id' => $id))->row()->add_date;
+                }
+
+                $s_time_key = $this->getArrayKey($s_time);
+
+
+                $p_name = $this->input->post('p_name');
+                $p_email = $this->input->post('p_email');
+                if (empty($p_email)) {
+                    $p_email = $p_name . '-' . rand(1, 1000) . '-' . $p_name . '-' . rand(1, 1000) . '@exemplo.com';
+                }
+                if (!empty($p_name)) {
+                    $password = $p_name . '-' . rand(1, 100000000);
+                }
+                $p_phone = $this->input->post('p_phone');
+                $p_age = $this->input->post('p_age');
+                $p_gender = $this->input->post('p_gender');
+                $p_cpf = $this->input->post('p_cpf');
+                $patient_id = rand(10000, 1000000);
+
+                $this->load->library('form_validation');
+                $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+
+
+        // Validating status_appointment Field   
+                $this->form_validation->set_rules('status_appointment', 'Situação', 'trim|min_length[1]|max_length[100]|xss_clean');
+
+                if ($this->form_validation->run() == FALSE) {
+                    if (!empty($id)) {
+                        redirect("appointment/editAppointment?id=$id");
+                    } else {
+                        $data['patients'] = $this->patient_model->getPatient();
+                        $data['doctors'] = $this->doctor_model->getDoctor();
+                        $data['settings'] = $this->settings_model->getSettings();
+                $this->load->view('home/dashboard', $data); // just the header file
+                $this->load->view('add_new', $data);
+                $this->load->view('home/footer'); // just the header file
+            }
+        } else {
+
+            if (!empty($p_name)) {
+
+                $data_p = array(
+                    'patient_id' => $patient_id,
+                    'name' => $p_name,
+                    'email' => $p_email,
+                    'phone' => $p_phone,
+                    'sex' => $p_gender,
+                    'age' => $p_age,
+                    'add_date' => $add_date,
+                    'cpf' => $p_cpf,
+                    'how_added' => 'from_appointment'
+                );
+                $username = $this->input->post('p_name');
+                // Adding New Patient
+                if ($this->ion_auth->email_check($p_email)) {
+                    $this->session->set_flashdata('feedback', 'Endereço de email do paciente já está registrado.');
+                } else {
+                    $dfg = 5;
+                    $this->ion_auth->register($username, $password, $p_email, $dfg);
+                    $ion_user_id = $this->db->get_where('users', array('email' => $p_email))->row()->id;
+                    $this->patient_model->insertPatient($data_p);
+                    $patient_user_id = $this->db->get_where('patient', array('email' => $p_email))->row()->id;
+                    $id_info = array('ion_user_id' => $ion_user_id);
+                    $this->patient_model->updatePatient($patient_user_id, $id_info);
+                }
+                
+                $patient = $patient_user_id;
+                //    }
+            }
+            //$error = array('error' => $this->upload->display_errors());
+            $data = array();
+            $data = array(
+
+                'status_appointment' => $status_appointment,
+                'remarks' => $remarks
+            );
+            $username = $this->input->post('name');
+
+            //echo'<script>alert("!Gracias por resgistrarte!")/script>';            
+            
             if (empty($id)) {     // Adding New department
                 $this->appointment_model->insertAppointment($data);
                 if (!empty($sms)) {
@@ -226,10 +369,14 @@ class Appointment extends MX_Controller {
                 $this->session->set_flashdata('feedback', 'Adicionado');
             } else { // Updating department
                 $this->appointment_model->updateAppointment($id, $data);
-                $this->session->set_flashdata('feedback', 'Atualizada');
+                $this->session->set_flashdata('feedback_atualizar', 'Atualizada');
             }
             // Loading View
-            redirect('appointment');
+            redirect('appointment/todays');
+
+
+
+            
         }
     }
 
@@ -525,73 +672,99 @@ class Appointment extends MX_Controller {
             287 => '11:55 PM',
         );
 
-        $key = array_search($s_time, $all_slot);
-        return $key;
+$key = array_search($s_time, $all_slot);
+return $key;
+}
+
+function getAppointmentByJason() {
+
+
+
+    if ($this->ion_auth->in_group(array('Doctor'))) {
+        $doctor_ion_id = $this->ion_auth->get_user_id();
+        $doctor = $this->db->get_where('doctor', array('ion_user_id' => $doctor_ion_id))->row()->id;
+        $query = $this->appointment_model->getAppointmentByDoctor($doctor);
+    } elseif ($this->ion_auth->in_group(array('Patient'))) {
+        $patient_ion_id = $this->ion_auth->get_user_id();
+        $patient = $this->db->get_where('patient', array('ion_user_id' => $patient_ion_id))->row()->id;
+        $query = $this->appointment_model->getAppointmentByPatient($patient);
+    } else {
+        $query = $this->appointment_model->getAppointmentForCalendar();
+    }
+    $jsonevents = array();
+
+    foreach ($query as $entry) {
+        $doctor = $this->db->get_where('doctor', array('id' => $entry->doctor))->row()->name;
+        $patient = $this->db->get_where('patient', array('id' => $entry->patient))->row()->id;
+        $time_slot = $entry->time_slot;
+        $time_slot_new = explode(' A ', $time_slot);
+        $start_time = explode(' ', $time_slot_new[0]);
+        $end_time = explode(' ', $time_slot_new[1]);
+
+        if ($start_time[1] == 'AM') {
+            $start_time_second = explode(':', $start_time[0]);
+            $day_start_time_second = $start_time_second[0] * 60 * 60 + $start_time_second[1] * 60;
+        } else {
+            $start_time_second = explode(':', $start_time[0]);
+            $day_start_time_second = 12 * 60 * 60 + $start_time_second[0] * 60 * 60 + $start_time_second[1] * 60;
+        }
+
+        if ($end_time[1] == 'AM') {
+            $end_time_second = explode(':', $end_time[0]);
+            $day_end_time_second = $end_time_second[0] * 60 * 60 + $end_time_second[1] * 60;
+        } else {
+            $end_time_second = explode(':', $end_time[0]);
+            $day_end_time_second = 12 * 60 * 60 + $end_time_second[0] * 60 * 60 + $end_time_second[1] * 60;
+        }
+
+        $status_agend = $entry->status_appointment;
+        if ($status_agend == 'AGENDADO'){
+            $status_agend = 'AGENDADO <i class="fa fa-warning" style="font-size:18px;color:#d1ae02;float: right;">&nbsp;&nbsp;</i>';
+        } elseif ($status_agend == 'ATENDIDO') {
+            $status_agend = 'ATENDIDO <i class="fa fa-check" style="font-size:18px;color:#36d227;float: right;">&nbsp;&nbsp;</i>';
+        } elseif ($status_agend == 'CANCELADO') {
+            $status_agend = 'CANCELADO <i class="fa fa-ban" style="font-size:18px;color:red;float: right;">&nbsp;&nbsp;</i>';
+        } elseif ($status_agend == 'CONFIRMADO') {
+            $status_agend = 'CONFIRMADO <i class="fa fa-thumbs-up" style="font-size:18px;color:#0288d1;float: right;">&nbsp;&nbsp;</i>';
+        }
+
+        $patient_mobile = $this->db->get_where('patient', array('id' => $entry->patient))->row()->phone;
+        $patient_name = $this->db->get_where('patient', array('id' => $entry->patient))->row()->name;
+        $info = '<a href="patient/medicalHistory?id='.$patient.'"><strong> <h5 class="title-event">- ' .$patient_name . ' | Obs: ' . $entry->remarks .' <span style="font-size:12px;float: right;color:#eee9e9;"> ' . $status_agend . '&nbsp;&nbsp; </span> </h5></strong></a>';
+
+        $jsonevents[] = array(
+            'id' => $entry->id,
+            'title' => $info,
+            'start' => date('Y-m-d H:i:s', $entry->date + $day_start_time_second),
+            'end' => date('Y-m-d H:i:s', $entry->date + $day_end_time_second),
+                    //   'color' => '#'.rand(100000, 999999),
+        );
     }
 
-    function getAppointmentByJason() {
-
-
-
-        if ($this->ion_auth->in_group(array('Doctor'))) {
-            $doctor_ion_id = $this->ion_auth->get_user_id();
-            $doctor = $this->db->get_where('doctor', array('ion_user_id' => $doctor_ion_id))->row()->id;
-            $query = $this->appointment_model->getAppointmentByDoctor($doctor);
-        } elseif ($this->ion_auth->in_group(array('Patient'))) {
-            $patient_ion_id = $this->ion_auth->get_user_id();
-            $patient = $this->db->get_where('patient', array('ion_user_id' => $patient_ion_id))->row()->id;
-            $query = $this->appointment_model->getAppointmentByPatient($patient);
-        } else {
-            $query = $this->appointment_model->getAppointmentForCalendar();
-        }
-        $jsonevents = array();
-
-        foreach ($query as $entry) {
-            $doctor = $this->db->get_where('doctor', array('id' => $entry->doctor))->row()->name;
-            $time_slot = $entry->time_slot;
-            $time_slot_new = explode(' A ', $time_slot);
-            $start_time = explode(' ', $time_slot_new[0]);
-            $end_time = explode(' ', $time_slot_new[1]);
-
-            if ($start_time[1] == 'AM') {
-                $start_time_second = explode(':', $start_time[0]);
-                $day_start_time_second = $start_time_second[0] * 60 * 60 + $start_time_second[1] * 60;
-            } else {
-                $start_time_second = explode(':', $start_time[0]);
-                $day_start_time_second = 12 * 60 * 60 + $start_time_second[0] * 60 * 60 + $start_time_second[1] * 60;
-            }
-
-            if ($end_time[1] == 'AM') {
-                $end_time_second = explode(':', $end_time[0]);
-                $day_end_time_second = $end_time_second[0] * 60 * 60 + $end_time_second[1] * 60;
-            } else {
-                $end_time_second = explode(':', $end_time[0]);
-                $day_end_time_second = 12 * 60 * 60 + $end_time_second[0] * 60 * 60 + $end_time_second[1] * 60;
-            }
-
-            $patient_mobile = $this->db->get_where('patient', array('id' => $entry->patient))->row()->phone;
-            $patient_name = $this->db->get_where('patient', array('id' => $entry->patient))->row()->name;
-            $info = '<br/>Paciente: ' . $patient_name . '<br/>Tel: ' . $patient_mobile . '<br/> Médico: ' . $doctor . '<br/>Obs: ' . $entry->remarks;
-            $jsonevents[] = array(
-                'id' => $entry->id,
-                'title' => $info,
-                'start' => date('Y-m-d H:i:s', $entry->date + $day_start_time_second),
-                'end' => date('Y-m-d H:i:s', $entry->date + $day_end_time_second),
-                    //   'color' => '#'.rand(100000, 999999),
-            );
-        }
-
-        echo json_encode($jsonevents);
+    echo json_encode($jsonevents);
 
         //  echo json_encode($data);
+}
+
+function getAppointment() {
+    $data['appointments'] = $this->appointment_model->getAppointment();
+    $this->load->view('appointment', $data);
+}
+
+function getAppointmentByDoctorId() {
+    $id = $this->input->get('id');
+    $data['doctor_id'] = $id;
+    $data['appointments'] = $this->appointment_model->getAppointment();
+    $data['patients'] = $this->patient_model->getPatient();
+    $data['mmrdoctor'] = $this->doctor_model->getDoctorById($id);
+    $data['doctors'] = $this->doctor_model->getDoctor();
+    $data['settings'] = $this->settings_model->getSettings();
+        $this->load->view('home/dashboard', $data); // just the header file
+        $this->load->view('appointment_by_doctor', $data);
+        $this->load->view('home/footer'); // just the header file
     }
 
-    function getAppointment() {
-        $data['appointments'] = $this->appointment_model->getAppointment();
-        $this->load->view('appointment', $data);
-    }
-
-    function getAppointmentByDoctorId() {
+    function getAppointmentByDoctorIdAtendidos() {
         $id = $this->input->get('id');
         $data['doctor_id'] = $id;
         $data['appointments'] = $this->appointment_model->getAppointment();
@@ -600,7 +773,46 @@ class Appointment extends MX_Controller {
         $data['doctors'] = $this->doctor_model->getDoctor();
         $data['settings'] = $this->settings_model->getSettings();
         $this->load->view('home/dashboard', $data); // just the header file
-        $this->load->view('appointment_by_doctor', $data);
+        $this->load->view('appointment_by_doctor_atendidos', $data);
+        $this->load->view('home/footer'); // just the header file
+    }
+
+    function getAppointmentByDoctorIdConfirmados() {
+        $id = $this->input->get('id');
+        $data['doctor_id'] = $id;
+        $data['appointments'] = $this->appointment_model->getAppointment();
+        $data['patients'] = $this->patient_model->getPatient();
+        $data['mmrdoctor'] = $this->doctor_model->getDoctorById($id);
+        $data['doctors'] = $this->doctor_model->getDoctor();
+        $data['settings'] = $this->settings_model->getSettings();
+        $this->load->view('home/dashboard', $data); // just the header file
+        $this->load->view('appointment_by_doctor_confirmados', $data);
+        $this->load->view('home/footer'); // just the header file
+    }
+
+    function getAppointmentByDoctorIdAgendados() {
+        $id = $this->input->get('id');
+        $data['doctor_id'] = $id;
+        $data['appointments'] = $this->appointment_model->getAppointment();
+        $data['patients'] = $this->patient_model->getPatient();
+        $data['mmrdoctor'] = $this->doctor_model->getDoctorById($id);
+        $data['doctors'] = $this->doctor_model->getDoctor();
+        $data['settings'] = $this->settings_model->getSettings();
+        $this->load->view('home/dashboard', $data); // just the header file
+        $this->load->view('appointment_by_doctor_agendados', $data);
+        $this->load->view('home/footer'); // just the header file
+    }
+
+    function getAppointmentByDoctorIdCancelados() {
+        $id = $this->input->get('id');
+        $data['doctor_id'] = $id;
+        $data['appointments'] = $this->appointment_model->getAppointment();
+        $data['patients'] = $this->patient_model->getPatient();
+        $data['mmrdoctor'] = $this->doctor_model->getDoctorById($id);
+        $data['doctors'] = $this->doctor_model->getDoctor();
+        $data['settings'] = $this->settings_model->getSettings();
+        $this->load->view('home/dashboard', $data); // just the header file
+        $this->load->view('appointment_by_doctor_cancelados', $data);
         $this->load->view('home/footer'); // just the header file
     }
 
@@ -658,7 +870,7 @@ class Appointment extends MX_Controller {
         $id = $this->input->get('id');
         $doctor_id = $this->input->get('doctor_id');
         $this->appointment_model->delete($id);
-        $this->session->set_flashdata('feedback', 'Deleted');
+        $this->session->set_flashdata('feedback', 'Deletado');
         if (!empty($doctor_id)) {
             redirect('appointment/getAppointmentByDoctorId?id=' . $doctor_id);
         } else {
@@ -669,5 +881,4 @@ class Appointment extends MX_Controller {
 }
 
 /* End of file appointment.php */
-    /* Location: ./application/modules/appointment/controllers/appointment.php */
-    
+/* Location: ./application/modules/appointment/controllers/appointment.php */

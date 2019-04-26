@@ -50,7 +50,7 @@
                                 <?php if ($this->ion_auth->in_group('admin')) { ?>
                                     <td>
                                         <a class="btn btn-info btn-xs editbutton width_auto" href="finance/pharmacy/editExpenseCategory?id=<?php echo $category->id; ?>"><i class="fa fa-edit"></i>  <?php  echo lang('edit'); ?></a>
-                                        <a class="btn btn-info btn-xs delete_button width_auto" href="finance/pharmacy/deleteExpenseCategory?id=<?php echo $category->id; ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-trash-o"></i>  <?php  echo lang('delete'); ?></a>
+                                        <a class="btn btn-info btn-xs delete_button width_auto" href="finance/pharmacy/deleteExpenseCategory?id=<?php echo $category->id; ?>" onclick="return confirm('Tem certeza de que deseja excluir este item?');"><i class="fa fa-trash-o"></i>  <?php  echo lang('delete'); ?></a>
                                     </td>
                                 <?php } ?>
                             </tr>

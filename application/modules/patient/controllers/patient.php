@@ -14,6 +14,7 @@ class Patient extends MX_Controller {
         $this->load->library('upload');
         $language = $this->db->get('settings')->row()->language;
         $this->lang->load('system_syntax', $language);
+        $this->load->model('appointment/appointment_model');
         $this->load->model('donor/donor_model');
         $this->load->model('finance/finance_model');
         $this->load->model('prescription/prescription_model');
@@ -66,6 +67,10 @@ class Patient extends MX_Controller {
         $birthdate = $this->input->post('birthdate');
         $bloodgroup = $this->input->post('bloodgroup');
         $patient_id = $this->input->post('p_id');
+        $sus = $this->input->post('sus');
+        $name_mother = $this->input->post('name_mother');
+        $convenio = $this->input->post('convenio');
+        $cpf = $this->input->post('cpf');
         if (empty($patient_id)) {
             $patient_id = rand(10000, 1000000);
         }
@@ -78,7 +83,7 @@ class Patient extends MX_Controller {
 
         $email = $this->input->post('email');
         if (empty($email)) {
-            $email = 'patient' . $patient_id . '@rajbari-bazar.com';
+            $email = 'patient' . $patient_id . '@exemplo.com';
         }
 
 
@@ -87,11 +92,13 @@ class Patient extends MX_Controller {
         $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 
         // Validating Name Field
-        $this->form_validation->set_rules('name', 'Name', 'trim|required|min_length[2]|max_length[100]|xss_clean');
+        $this->form_validation->set_rules('name', 'Nome', 'trim|required|min_length[2]|max_length[100]|xss_clean');
+        // Validating Name  Field
+        $this->form_validation->set_rules('name_mother', 'Nome da Mãe', 'trim|required|min_length[2]|max_length[100]|xss_clean');
         // Validating Password Field
-        if (empty($id)) {
-            $this->form_validation->set_rules('password', 'Password', 'trim|min_length[5]|max_length[100]|xss_clean');
-        }
+        //if (empty($id)) {
+            //$this->form_validation->set_rules('password', 'Password', 'trim|min_length[5]|max_length[100]|xss_clean');
+        //}
         // Validating Email Field
         $this->form_validation->set_rules('email', 'Email', 'trim|min_length[5]|max_length[100]|xss_clean');
         // Validating Doctor Field
@@ -106,17 +113,20 @@ class Patient extends MX_Controller {
         $this->form_validation->set_rules('birthdate', 'Birth Date', 'trim|min_length[2]|max_length[500]|xss_clean');
         // Validating Phone Field           
         $this->form_validation->set_rules('bloodgroup', 'Blood Group', 'trim|min_length[1]|max_length[10]|xss_clean');
-
+        // Validating SUS Field
+        $this->form_validation->set_rules('sus', 'SUS', 'trim|min_length[2]|max_length[100]|xss_clean');
+        // Validating Convênio Field
+        $this->form_validation->set_rules('convenio', 'Convenio', 'trim|min_length[2]|max_length[100]|xss_clean');
 
         if ($this->form_validation->run() == FALSE) {
             if (!empty($id)) {
-                 $this->session->set_flashdata('feedback', 'Erro de validação !');
-                redirect("patient/editPatient?id=$id");
-            } else {
-                $data = array();
-                $data['setval'] = 'setval';
-                $data['doctors'] = $this->doctor_model->getDoctor();
-                $data['groups'] = $this->donor_model->getBloodBank();
+             $this->session->set_flashdata('feedback', 'Erro de validação !');
+             redirect("patient/editPatient?id=$id");
+         } else {
+            $data = array();
+            $data['setval'] = 'setval';
+            $data['doctors'] = $this->doctor_model->getDoctor();
+            $data['groups'] = $this->donor_model->getBloodBank();
                 $this->load->view('home/dashboard'); // just the header file
                 $this->load->view('add_new', $data);
                 $this->load->view('home/footer'); // just the header file
@@ -162,7 +172,11 @@ class Patient extends MX_Controller {
                     'sex' => $sex,
                     'birthdate' => $birthdate,
                     'bloodgroup' => $bloodgroup,
-                    'add_date' => $add_date
+                    'add_date' => $add_date,
+                    'sus' => $sus,
+                    'name_mother' => $name_mother,
+                    'convenio' => $convenio,
+                    'cpf' => $cpf
                 );
             } else {
                 //$error = array('error' => $this->upload->display_errors());
@@ -177,17 +191,30 @@ class Patient extends MX_Controller {
                     'sex' => $sex,
                     'birthdate' => $birthdate,
                     'bloodgroup' => $bloodgroup,
-                    'add_date' => $add_date
+                    'add_date' => $add_date,
+                    'sus' => $sus,
+                    'name_mother' => $name_mother,
+                    'convenio' => $convenio,
+                    'cpf' => $cpf
                 );
             }
 
             $username = $this->input->post('name');
 
+
             if (empty($id)) {     // Adding New Patient
-                if ($this->ion_auth->email_check($email)) {
-                    $this->session->set_flashdata('feedback', 'Este endereço de e-mail já está registrado');
-                    redirect('patient/addNewView');
+                //if ($this->ion_auth->email_check($email)) {
+                    //$this->session->set_flashdata('feedback', 'Este endereço de e-mail já está registrado');
+                    //redirect('patient/addNewView');
+                //} else {
+
+                $query = $this->db->get_where(patient, array('cpf' => $cpf));
+
+                if ($query->num_rows() > 0) {
+                    $this->session->set_flashdata('feedback_cpf', 'Esse CPF já foi cadastrado!');
+                    redirect('patient');
                 } else {
+
                     $dfg = 5;
                     $this->ion_auth->register($username, $password, $email, $dfg);
                     $ion_user_id = $this->db->get_where('users', array('email' => $email))->row()->id;
@@ -197,6 +224,7 @@ class Patient extends MX_Controller {
                     $this->patient_model->updatePatient($patient_user_id, $id_info);
                     $this->session->set_flashdata('feedback', 'Adicionado');
                 }
+                //}
                 //    }
             } else { // Updating Patient
                 $ion_user_id = $this->db->get_where('patient', array('id' => $id))->row()->ion_user_id;
@@ -412,6 +440,19 @@ class Patient extends MX_Controller {
         $this->load->view('home/footer'); // just the footer file
     }
 
+    function medicalHistoryReceita() {
+        $data = array();
+        $id = $this->input->get('id');
+        $data['patient'] = $this->patient_model->getPatientById($id);
+        $data['patients'] = $this->patient_model->getPatient();
+        $data['prescriptions'] = $this->prescription_model->getPrescriptionByPatientId($id);
+        $data['medical_histories'] = $this->patient_model->getMedicalHistoryByPatientId($id);
+        $data['patient_materials'] = $this->patient_model->getPatientMaterialByPatientId($id);
+        $this->load->view('home/dashboard'); // just the header file
+        $this->load->view('medical_history_receita', $data);
+        $this->load->view('home/footer'); // just the footer file
+    }
+
     function editMedicalHistoryByJason() {
         $id = $this->input->get('id');
         $data['medical_history'] = $this->patient_model->getMedicalHistoryById($id);
@@ -552,5 +593,4 @@ class Patient extends MX_Controller {
 }
 
 /* End of file patient.php */
-    /* Location: ./application/modules/patient/controllers/patient.php */
-    
+/* Location: ./application/modules/patient/controllers/patient.php */

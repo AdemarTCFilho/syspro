@@ -47,7 +47,7 @@
                                 <td>
                                     <a class="btn btn-info btn-xs btn_width" href="prescription/viewPrescription?id=<?php echo $prescription->id; ?>"><i class="fa fa-eye"> <?php echo lang('view'); ?> <?php echo lang('prescription'); ?> </i></a>   
                                     <a class="btn btn-info btn-xs btn_width editPrescription" data-toggle="modal" data-id="<?php echo $prescription->id; ?>"><i class="fa fa-edit"></i> <?php echo lang('edit'); ?>  <?php echo lang('prescription'); ?></a>
-                                    <a class="btn btn-info btn-xs btn_width delete_button" href="prescription/delete?id=<?php echo $prescription->id; ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-trash-o"> <?php echo lang('delete'); ?></i></a>
+                                    <a class="btn btn-info btn-xs btn_width delete_button" href="prescription/delete?id=<?php echo $prescription->id; ?>" onclick="return confirm('Tem certeza de que deseja excluir este item?');"><i class="fa fa-trash-o"> <?php echo lang('delete'); ?></i></a>
                                 </td>
                             </tr>
                         <?php } ?>
@@ -95,7 +95,7 @@ if ($this->ion_auth->in_group('Doctor')) {
                     <div class="form-group col-md-6">
                         <label for="exampleInputEmail1"><?php echo lang('patient'); ?></label>
                         <select class="form-control m-bot15 js-example-basic-single" name="patient" value=''> 
-                            <option value="">Select .....</option>
+                            <option value="">Selecionar .....</option>
                             <?php foreach ($patients as $patientss) { ?>
                                 <option value="<?php echo $patientss->id; ?>" <?php
                                 if (!empty($prescription->patient)) {
@@ -161,7 +161,7 @@ if ($this->ion_auth->in_group('Doctor')) {
                     <div class="form-group col-md-6">
                         <label for="exampleInputEmail1"><?php echo lang('patient'); ?></label>
                         <select class="form-control m-bot15" name="patient" value=''> 
-                            <option value="">Select .....</option>
+                            <option value="">Selecionar .....</option>
                             <?php foreach ($patients as $patientss) { ?>
                                 <option value="<?php echo $patientss->id; ?>" <?php
                                 if (!empty($prescription->patient)) {

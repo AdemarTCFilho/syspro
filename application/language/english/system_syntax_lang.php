@@ -24,7 +24,7 @@ $lang['error_csrf'] = 'This form post did not pass our security checks.';
 
 // dashboard
 
-$lang['doctor'] = 'Doctor';
+$lang['doctor'] = 'Médico';
 $lang['patient'] = 'Patient';
 $lang['nurse'] = 'Nurse';
 $lang['pharmacist'] = 'Pharmacist';

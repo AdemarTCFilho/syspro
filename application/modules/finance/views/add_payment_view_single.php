@@ -115,27 +115,27 @@
                                                     <div class="col-md-9"> 
                                                         <select class="form-control m-bot15" name="p_gender" value=''>
 
-                                                            <option value="Male" <?php
+                                                            <option value="Masculino" <?php
                                                             if (!empty($patient->sex)) {
-                                                                if ($patient->sex == 'Male') {
+                                                                if ($patient->sex == 'Masculino') {
                                                                     echo 'selected';
                                                                 }
                                                             }
-                                                            ?> > Male </option>   
-                                                            <option value="Female" <?php
+                                                            ?> > Masculino </option>
+                                                            <option value="Feminino" <?php
                                                             if (!empty($patient->sex)) {
-                                                                if ($patient->sex == 'Female') {
+                                                                if ($patient->sex == 'Feminino') {
                                                                     echo 'selected';
                                                                 }
                                                             }
-                                                            ?> > Female </option>
-                                                            <option value="Others" <?php
+                                                            ?> > Feminino </option>
+                                                            <option value="Outros" <?php
                                                             if (!empty($patient->sex)) {
-                                                                if ($patient->sex == 'Others') {
+                                                                if ($patient->sex == 'Outros') {
                                                                     echo 'selected';
                                                                 }
                                                             }
-                                                            ?> > Others </option>
+                                                            ?> > Outros </option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -147,7 +147,7 @@
                                                 </div>
                                                 <div class="col-md-9"> 
                                                     <select class="form-control m-bot15 js-example-basic-single add_doctor" id="add_doctor" name="doctor" value=''>  
-                                                        <option value="">Select .....</option>
+                                                        <option value="">Selecionar .....</option>
                                                         <option value="add_new" style="color: #41cac0 !important;"><?php echo lang('add_new'); ?></option>
                                                         <?php foreach ($doctors as $doctor) { ?>
                                                             <option value="<?php echo $doctor->id; ?>"<?php
@@ -463,34 +463,34 @@ if ($discount_type == 'flat') {
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title"><i class="fa fa-plus-circle"></i> Patient Registration</h4>
+                <h4 class="modal-title"><i class="fa fa-plus-circle"></i> Registro de paciente</h4>
             </div>
             <div class="modal-body">
                 <form role="form" action="patient/addNew?redirect=payment" method="post" enctype="multipart/form-data">
 
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Name</label>
+                        <label for="exampleInputEmail1">Nome</label>
                         <input type="text" class="form-control" name="name" id="exampleInputEmail1" value='' placeholder="">
                     </div>
 
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Address</label>
+                        <label for="exampleInputEmail1">Endereço</label>
                         <input type="text" class="form-control" name="address" id="exampleInputEmail1" value='' placeholder="">
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Phone</label>
+                        <label for="exampleInputEmail1">Telefone</label>
                         <input type="text" class="form-control" name="phone" id="exampleInputEmail1" value='' placeholder="">
                     </div>
 
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Image</label>
+                        <label for="exampleInputEmail1">Imagem</label>
                         <input type="file" name="img_url">
                     </div>
 
                     <input type="hidden" name="id" value=''>
 
                     <section class="">
-                        <button type="submit" name="submit" class="btn btn-info">Submit</button>
+                        <button type="submit" name="submit" class="btn btn-info">Enviar</button>
                     </section>
                 </form>
 

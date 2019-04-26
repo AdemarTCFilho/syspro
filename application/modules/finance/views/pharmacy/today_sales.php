@@ -81,7 +81,7 @@
 
                                     <a class="btn btn-xs invoicebutton width_auto" style="color: #fff;" href="finance/pharmacy/invoice?id=<?php echo $payment->id; ?>"><i class="fa fa-file-text"></i>  <?php  echo lang('invoice'); ?></a>
                                     <?php if ($this->ion_auth->in_group('admin')) { ?> 
-                                        <a class="btn btn-info btn-xs delete_button width_auto" href="finance/pharmacy/delete?id=<?php echo $payment->id; ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-trash-o"></i>  <?php  echo lang('delete'); ?></a>
+                                        <a class="btn btn-info btn-xs delete_button width_auto" href="finance/pharmacy/delete?id=<?php echo $payment->id; ?>" onclick="return confirm('Tem certeza de que deseja excluir este item?');"><i class="fa fa-trash-o"></i>  <?php  echo lang('delete'); ?></a>
                                     <?php } ?>
                                     </button>
                                 </td>

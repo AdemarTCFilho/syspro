@@ -21,7 +21,7 @@ class Prescription extends MX_Controller {
         if (!$this->ion_auth->logged_in()) {
             redirect('auth/login', 'refresh');
         }
-        if (!$this->ion_auth->in_group(array('admin', 'Pharmacist', 'Doctor', 'Patient'))) {
+        if (!$this->ion_auth->in_group(array('admin', 'Pharmacist', 'Doctor', 'Patient', 'Laboratorist'))) {
             redirect('home/permission');
         }
     }
@@ -74,6 +74,7 @@ class Prescription extends MX_Controller {
         $symptom = $this->input->post('symptom');
         $medicine = $this->input->post('medicine');
         $note = $this->input->post('note');
+        $receita = $this->input->post('receita');
         $admin = $this->input->post('admin');
 
 
@@ -88,11 +89,13 @@ class Prescription extends MX_Controller {
         // Validating Doctor Field
         $this->form_validation->set_rules('doctor', 'Doctor', 'trim|min_length[2]|max_length[100]|xss_clean');
         // Validating Advice Field
-        $this->form_validation->set_rules('symptom', 'History', 'trim|min_length[1]|max_length[1000]|xss_clean');
+        $this->form_validation->set_rules('symptom', 'History', 'trim|min_length[1]|max_length[5000]|xss_clean');
         // Validating State Field
-        $this->form_validation->set_rules('medicine', 'Medication', 'trim|min_length[1]|max_length[1000]|xss_clean');
+        $this->form_validation->set_rules('medicine', 'Medication', 'trim|min_length[1]|max_length[5000]|xss_clean');
         // Validating Do And Dont Name Field
-        $this->form_validation->set_rules('note', 'Note', 'trim|min_length[2]|max_length[1000]|xss_clean');
+        $this->form_validation->set_rules('note', 'Note', 'trim|min_length[2]|max_length[5000]|xss_clean');
+        // Validating Validity Field
+        $this->form_validation->set_rules('receita', 'Receita', 'trim|min_length[2]|max_length[5000]|xss_clean');
         // Validating Validity Field
         $this->form_validation->set_rules('validity', 'Validity', 'trim|min_length[1]|max_length[100]|xss_clean');
 
@@ -119,6 +122,7 @@ class Prescription extends MX_Controller {
                 'symptom' => $symptom,
                 'medicine' => $medicine,
                 'note' => $note,
+                'receita' => $receita
             );
             if (empty($id)) {
                 $this->prescription_model->insertPrescription($data);
@@ -131,10 +135,81 @@ class Prescription extends MX_Controller {
             if (!empty($admin)) {
                 redirect('prescription/all');
             } else {
-                redirect('prescription');
+                redirect('patient/medicalHistory?id='.$patient);
             }
         }
     }
+
+
+    ///////////////////////////////////////////////////////////////////////////////////
+
+       public function addNewPrescriptionReceita() {
+        $id = $this->input->post('id');
+        $tab = $this->input->post('tab');
+        $date = $this->input->post('date');
+        if (!empty($date)) {
+            $date = strtotime($date);
+        }
+        $patient = $this->input->post('patient');
+        $doctor = $this->input->post('doctor');
+        $receita = $this->input->post('receita');
+        $admin = $this->input->post('admin');
+
+
+
+
+        $this->load->library('form_validation');
+        $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+        // Validating Date Field
+        $this->form_validation->set_rules('date', 'Date', 'trim|required|min_length[2]|max_length[100]|xss_clean');
+        // Validating Patient Field
+        $this->form_validation->set_rules('patient', 'Patient', 'trim|required|min_length[2]|max_length[100]|xss_clean');
+        // Validating Doctor Field
+        $this->form_validation->set_rules('doctor', 'Doctor', 'trim|min_length[2]|max_length[100]|xss_clean');
+        // Validating Validity Field
+        $this->form_validation->set_rules('receita', 'Receita', 'trim|min_length[2]|max_length[1000]|xss_clean');
+        // Validating Validity Field
+        $this->form_validation->set_rules('validity', 'Validity', 'trim|min_length[1]|max_length[100]|xss_clean');
+
+
+
+        if ($this->form_validation->run() == FALSE) {
+            if (!empty($id)) {
+                redirect('prescription/editPrescription?id=' . $id);
+            } else {
+                $data = array();
+                $data['setval'] = 'setval';
+                $data['patients'] = $this->patient_model->getPatient();
+                $data['doctors'] = $this->doctor_model->getDoctor();
+                $data['settings'] = $this->settings_model->getSettings();
+                $this->load->view('home/dashboard', $data); // just the header file
+                $this->load->view('add_new_prescription_view', $data);
+                $this->load->view('home/footer'); // just the header file
+            }
+        } else {
+            $data = array();
+            $data = array('date' => $date,
+                'patient' => $patient,
+                'doctor' => $doctor,
+                'receita' => $receita
+            );
+            if (empty($id)) {
+                $this->prescription_model->insertPrescription($data);
+                $this->session->set_flashdata('feedback', 'Adicionado');
+            } else {
+                $this->prescription_model->updatePrescription($id, $data);
+                $this->session->set_flashdata('feedback', 'Atualizada');
+            }
+
+            if (!empty($admin)) {
+                redirect('prescription/all');
+            } else {
+                redirect('patient/medicalHistoryReceita?id='.$patient);
+            }
+        }
+    }
+
+    /////////////////////////////////////////////////////////////////////
 
     function viewPrescription() {
         $id = $this->input->get('id');
@@ -142,6 +217,15 @@ class Prescription extends MX_Controller {
         $data['settings'] = $this->settings_model->getSettings();
         $this->load->view('home/dashboard', $data); // just the header file
         $this->load->view('prescription_view', $data);
+        $this->load->view('home/footer'); // just the header file
+    }
+
+    function viewPrescriptionMedecine() {
+        $id = $this->input->get('id');
+        $data['prescription'] = $this->prescription_model->getPrescriptionById($id);
+        $data['settings'] = $this->settings_model->getSettings();
+        $this->load->view('home/dashboard', $data); // just the header file
+        $this->load->view('prescription_medicine', $data);
         $this->load->view('home/footer'); // just the header file
     }
 
@@ -173,7 +257,7 @@ class Prescription extends MX_Controller {
         } elseif (!empty($admin)) {
             redirect('prescription/all');
         } else {
-            redirect('prescription');
+            redirect('home');
         }
     }
 

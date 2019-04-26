@@ -88,7 +88,7 @@
                                       
                                     <?php  if ($this->ion_auth->in_group(array('admin', 'Accountant'))) { ?>
                                         
-                                            <a class="btn btn-xs width_auto delete_button" href="finance/otPaymentDelete?id=<?php echo $ot_payment->id; ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-trash-o"> <?php echo lang('delete'); ?></i></a> <br>
+                                            <a class="btn btn-xs width_auto delete_button" href="finance/otPaymentDelete?id=<?php echo $ot_payment->id; ?>" onclick="return confirm('Tem certeza de que deseja excluir este item?');"><i class="fa fa-trash-o"> <?php echo lang('delete'); ?></i></a> <br>
                                         
                                     <?php } ?>
                                 </td>

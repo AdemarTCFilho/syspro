@@ -55,7 +55,7 @@
                                     <a class="btn btn-info btn-xs invoicebutton" title="<?php echo lang('invoice'); ?>" href="finance/expenseInvoice?id=<?php echo $expense->id; ?>"><i class="fa fa-file-text"></i> </a>
                                     <?php if ($this->ion_auth->in_group('admin')) { ?>
                                         <a class="btn btn-info btn-xs editbutton" title="<?php echo lang('edit'); ?>" href="finance/editExpense?id=<?php echo $expense->id; ?>"><i class="fa fa-edit"></i> </a>
-                                        <a class="btn btn-info btn-xs delete_button" title="<?php echo lang('delete'); ?>" href="finance/deleteExpense?id=<?php echo $expense->id; ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-trash-o"></i> </a>
+                                        <a class="btn btn-info btn-xs delete_button" title="<?php echo lang('delete'); ?>" href="finance/deleteExpense?id=<?php echo $expense->id; ?>" onclick="return confirm('Tem certeza de que deseja excluir este item?');"><i class="fa fa-trash-o"></i> </a>
                                     <?php } ?>
                                 </td>
 

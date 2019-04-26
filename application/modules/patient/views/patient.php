@@ -4,101 +4,118 @@
     <section class="wrapper site-min-height">
         <!-- page start-->
         <section class="">
-
+            <?php echo $this->session->flashdata('feedback_cpf'); ?>
             <header class="panel-heading">
-                    <i class="fa fa-user"></i>   <?php echo lang('patient'); ?> <?php echo lang('database'); ?>
-                </header>
+                <i class="fa fa-user"></i>   <?php echo lang('patient'); ?>s Cadastrados
+            </header>
             <div class="panel-body">
-                
+
                 <div class="adv-table editable-table ">
-                      <div class=" no-print">
-                        <a data-toggle="modal" href="#myModal">
-                            <div class="btn-group">
-                                <button id="" class="btn green">
-                                     <i class="fa fa-plus-circle"></i> <?php echo lang('add_new'); ?>
-                                </button>
-                            </div>
-                        </a>
-                        <button class="export no-print" onclick="javascript:window.print();"><?php echo lang('print'); ?></button>  
-                    </div>
-                    <div class="space15"></div>
-                    <table class="table table-striped table-hover table-bordered" id="editable-sample">
-                        <thead>
-                            <tr>
-                                <th><?php echo lang('patient_id'); ?></th>                        
-                                <th><?php echo lang('name'); ?></th>
-                                <th><?php echo lang('phone'); ?></th>
-                                <?php if ($this->ion_auth->in_group(array('admin', 'Accountant', 'Receptionist'))) { ?>
-                                    <th><?php echo lang('due_balance'); ?></th>
-                                <?php } ?>
-                                <th class="no-print"><?php echo lang('options'); ?></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <style>
-                            .img_url{
-                                height:20px;
-                                width:20px;
-                                background-size: contain; 
-                                max-height:20px;
-                                border-radius: 100px;
-                            }
-                        </style>
-                        <?php foreach ($patients as $patient) { ?>
-                            <tr class="">
-                                <td> <?php echo $patient->id; ?></td>
-                                <td> <?php echo $patient->name; ?></td>
-                                <td><?php echo $patient->phone; ?></td>
-
-
-                                <?php if ($this->ion_auth->in_group(array('admin', 'Accountant', 'Receptionist'))) { ?>
-                                    <td> <?php echo $settings->currency; ?>
-                                        <?php
-                                        $query = $this->db->get_where('payment', array('patient' => $patient->id))->result();
-                                        $deposits = $this->db->get_where('patient_deposit', array('patient' => $patient->id))->result();
-                                        $balance = array();
-                                        $deposit_balance = array();
-                                        foreach ($query as $gross) {
-                                            $balance[] = $gross->gross_total;
-                                        }
-                                        $balance = array_sum($balance);
-
-
-                                        foreach ($deposits as $deposit) {
-                                            $deposit_balance[] = $deposit->deposited_amount;
-                                        }
-                                        $deposit_balance = array_sum($deposit_balance);
-
-
-
-                                        $bill_balance = $balance;
-
-                                        echo $due_balance = $bill_balance - $deposit_balance;
-
-                                        $due_balance = NULL;
-                                        ?>
-                                    </td>
-                                <?php } ?>
-
-                                <td class="no-print">
-                                     <a type="button" class="btn editbutton" title="<?php echo lang('edit'); ?>" data-toggle="modal" data-id="<?php echo $patient->id; ?>"><i class="fa fa-edit"></i> <?php echo lang('edit'); ?></a>
-                                   
-                                    <a class="btn detailsbutton" title="<?php echo lang('info'); ?>" href="patient/patientDetails?id=<?php echo $patient->id; ?>"><i class="fa fa-info"> </i> <?php echo lang('info'); ?></a> 
-                                    <a class="btn green" title="<?php echo lang('history'); ?>" href="patient/medicalHistory?id=<?php echo $patient->id; ?>"><i class="fa fa-stethoscope"></i> <?php echo lang('history'); ?></a>
-                                    <a class="btn detailsbutton" title="<?php echo lang('payment'); ?>" href="finance/patientPaymentHistory?patient=<?php echo $patient->id; ?>"><i class="fa fa-money"></i> <?php echo lang('payment'); ?></a>
-                                     <a class="btn delete_button" title="<?php echo lang('delete'); ?>" href="patient/delete?id=<?php echo $patient->id; ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-trash-o"></i> <?php echo lang('delete'); ?></a>
-                                   
-
-                                </td>
-                            </tr>
+                  <div class=" no-print">
+                    <a data-toggle="modal" href="#myModal">
+                        <div class="btn-group">
+                            <button id="" class="btn green">
+                             <i class="fa fa-plus-circle"></i> <?php echo lang('add_new_patient'); ?>
+                         </button>
+                     </div>
+                 </a>
+                 <button class="export no-print" onclick="javascript:window.print();"><?php echo lang('print'); ?></button>  
+             </div>
+             <div class="space15"></div>
+             <table class="table table-striped table-hover table-bordered" id="editable-sample">
+                <thead>
+                    <tr>
+                        <th><?php echo lang('patient_id'); ?></th>                        
+                        <th><?php echo lang('name'); ?></th>
+                        <th>CPF</th>
+                        <th><?php echo lang('card_sus'); ?></th>
+                        <th>Convênio</th>
+                        <?php if ($this->ion_auth->in_group(array('Laboratorist', 'Accountant'))) { ?>
+                        <th><?php echo lang('due_balance'); ?></th>
                         <?php } ?>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
-        <!-- page end-->
-    </section>
+                        <th class="no-print"><?php echo lang('options'); ?></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <style>
+                    .img_url{
+                        height:20px;
+                        width:20px;
+                        background-size: contain; 
+                        max-height:20px;
+                        border-radius: 100px;
+                    }
+                </style>
+                <?php foreach ($patients as $patient) { ?>
+                <tr class="">
+                    <td> <?php echo $patient->id; ?></td>
+                    <td> <?php echo $patient->name; ?></td>
+                    <td><?php echo $patient->cpf; ?></td>
+                    <td><?php echo $patient->sus; ?></td>
+                    <td><?php echo $patient->convenio; ?></td>
+
+
+                    <?php if ($this->ion_auth->in_group(array('Laboratorist', 'Accountant'))) { ?>
+                    <td> <?php echo $settings->currency; ?>
+                        <?php
+                        $query = $this->db->get_where('payment', array('patient' => $patient->id))->result();
+                        $deposits = $this->db->get_where('patient_deposit', array('patient' => $patient->id))->result();
+                        $balance = array();
+                        $deposit_balance = array();
+                        foreach ($query as $gross) {
+                            $balance[] = $gross->gross_total;
+                        }
+                        $balance = array_sum($balance);
+
+
+                        foreach ($deposits as $deposit) {
+                            $deposit_balance[] = $deposit->deposited_amount;
+                        }
+                        $deposit_balance = array_sum($deposit_balance);
+
+
+
+                        $bill_balance = $balance;
+
+                        echo $due_balance = $bill_balance - $deposit_balance;
+
+                        $due_balance = NULL;
+                        ?>
+                    </td>
+                    <?php } ?>
+
+                    <td class="no-print">
+
+
+                        <a class="btn detailsbutton btn-xs" title="<?php echo lang('info'); ?>" href="patient/patientDetails?id=<?php echo $patient->id; ?>"><i class="fa fa-info"> </i> <?php echo lang('info'); ?></a> 
+                        <a type="button" class="btn editbutton btn-xs" title="<?php echo lang('edit'); ?>" data-toggle="modal" data-id="<?php echo $patient->id; ?>"><i class="fa fa-edit"></i> </a>
+
+                        <a class="btn delete_button btn-xs" title="<?php echo lang('delete'); ?>" href="patient/delete?id=<?php echo $patient->id; ?>" onclick="return confirm('Tem certeza de que deseja excluir este item?');"><i class="fa fa-trash-o"></i> </a>
+
+
+                        <?php if ($this->ion_auth->in_group('Laboratorist')) { ?>
+
+                        <a class="btn green" title="<?php echo lang('history'); ?>" href="patient/medicalHistory?id=<?php echo $patient->id; ?>"><i class="fa fa-stethoscope"></i> <?php echo lang('history'); ?></a>
+
+
+                        <a class="btn detailsbutton" title="<?php echo lang('payment'); ?>" href="finance/patientPaymentHistory?patient=<?php echo $patient->id; ?>"><i class="fa fa-money"></i> <?php echo lang('payment'); ?></a>
+
+
+                        <a type="button" class="btn editbutton" title="<?php echo lang('edit'); ?>" data-toggle="modal" data-id="<?php echo $patient->id; ?>"><i class="fa fa-edit"></i> <?php echo lang('edit'); ?></a>
+
+
+                        <?php } ?>
+
+                    </td>
+                </tr>
+                <?php } ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+</section>
+<!-- page end-->
+</section>
 </section>
 <!--main content end-->
 <!--footer start-->
@@ -122,7 +139,7 @@
                         <div class="col-md-12">     
                             <div class="col-md-3">
                             </div>
-                            <div class="col-md-6">
+                            <!--<div class="col-md-6">
                                 <div class="col-md-3 payment_label"> 
                                     <label for="exampleInputEmail1"><?php echo lang('doctor'); ?></label>
                                 </div>
@@ -139,73 +156,86 @@
                                                 <?php } ?>
                                     </select>
                                 </div>
-                            </div>
+                            </div>-->
                             <div class="col-md-3">
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="exampleInputEmail1">CPF</label>
+                        <input type="text" class="form-control" name="cpf" id="exampleInputEmail1" value='' placeholder="Digite o CPF" required="required">
+                    </div>
+
+                    <div class="form-group">
                         <label for="exampleInputEmail1"><?php echo lang('name'); ?></label>
-                        <input type="text" class="form-control" name="name" id="exampleInputEmail1" value='' placeholder="">
+                        <input type="text" class="form-control" name="name" id="exampleInputEmail1" value='' placeholder="Digite um nome" required="required">
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" style="display: none">
+                        <label for="exampleInputEmail1"><?php echo lang('name_mother'); ?></label>
+                        <input type="text" class="form-control" name="name_mother" id="exampleInputEmail1" value='......' placeholder="">
+                    </div>
 
-
+                    <div class="form-group" style="display: none">
                         <label for="exampleInputEmail1"><?php echo lang('password'); ?></label>
-                        <input type="password" class="form-control" name="password" id="exampleInputEmail1" placeholder="">
-
+                        <input type="password" class="form-control" name="password" id="exampleInputEmail1" value='12345' placeholder="">
                     </div>
 
-
-                    <div class="form-group">
+                    <div class="form-group" style="display: none">
                         <label for="exampleInputEmail1"><?php echo lang('email'); ?></label>
                         <input type="text" class="form-control" name="email" id="exampleInputEmail1" value='' placeholder="">
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" style="display: none">
                         <label for="exampleInputEmail1"><?php echo lang('address'); ?></label>
-                        <input type="text" class="form-control" name="address" id="exampleInputEmail1" value='' placeholder="">
+                        <input type="text" class="form-control" name="address" id="exampleInputEmail1" value='.......' placeholder="">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" style="display: none">
                         <label for="exampleInputEmail1"><?php echo lang('phone'); ?></label>
-                        <input type="text" class="form-control" name="phone" id="exampleInputEmail1" value='' placeholder="">
+                        <input type="text" class="form-control" name="phone" id="exampleInputEmail1" value='......' placeholder="">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" style="display: none">
+                        <label for="exampleInputEmail1"><?php echo lang('card_sus'); ?></label>
+                        <input type="text" class="form-control" name="sus" id="exampleInputEmail1" value='.......' placeholder="">
+                    </div>
+                    <div class="form-group" style="display: none">
+                        <label for="exampleInputEmail1">Convênio</label>
+                        <input type="text" class="form-control" name="convenio" id="exampleInputEmail1" value='.......' placeholder="">
+                    </div>
+                    <div class="form-group" style="display: none">
                         <label for="exampleInputEmail1"><?php echo lang('sex'); ?></label>
-                        <select class="form-control m-bot15" name="sex" value=''>
+                        <select class="form-control m-bot15" name="sex" value='Outros'>
 
-                            <option value="Male" <?php
+                            <option value="Masculino" <?php
                             if (!empty($patient->sex)) {
-                                if ($patient->sex == 'Male') {
+                                if ($patient->sex == 'Masculino') {
                                     echo 'selected';
                                 }
                             }
-                            ?> > Male </option>
-                            <option value="Female" <?php
+                            ?> > Masculino </option>
+                            <option value="Feminino" <?php
                             if (!empty($patient->sex)) {
-                                if ($patient->sex == 'Female') {
+                                if ($patient->sex == 'Feminino') {
                                     echo 'selected';
                                 }
                             }
-                            ?> > Female </option>
-                            <option value="Others" <?php
+                            ?> > Feminino </option>
+                            <option value="Outros" <?php
                             if (!empty($patient->sex)) {
-                                if ($patient->sex == 'Others') {
+                                if ($patient->sex == 'Outros') {
                                     echo 'selected';
                                 }
                             }
-                            ?> > Others </option>
+                            ?> > Outros </option>
                         </select>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" style="display: none">
                         <label><?php echo lang('birth_date'); ?></label>
-                        <input class="form-control form-control-inline input-medium default-date-picker" type="text" name="birthdate" value="" placeholder="">      
+                        <input class="form-control form-control-inline input-medium default-date-picker" type="text" name="birthdate" value="12/12/2000" placeholder="">      
                     </div>
 
-
-                    <div class="form-group">
+                    <!--<div class="form-group">
                         <label for="exampleInputEmail1"><?php echo lang('blood_group'); ?></label>
                         <select class="form-control m-bot15" name="bloodgroup" value=''>
                             <?php foreach ($groups as $group) { ?>
@@ -218,7 +248,7 @@
                                 ?> > <?php echo $group->group; ?> </option>
                                     <?php } ?> 
                         </select>
-                    </div>
+                    </div>-->
 
                     <div class="form-group">
                         <label for="exampleInputEmail1"><?php echo lang('image'); ?></label>
@@ -257,7 +287,7 @@
                 <h4 class="modal-title"><i class="fa fa-edit"></i> <?php echo lang('edit_patient'); ?></h4>
             </div>
             <div class="modal-body">
-                <form role="form" id="editPatientForm" action="patient/addNew" method="post" enctype="multipart/form-data">
+                <form role="form" id="editPatientForm" action="patient/EditPacient" method="post" enctype="multipart/form-data">
                     <div class="form-group">
                         <div class="col-md-12">     
                             <div class="col-md-3">
@@ -269,14 +299,14 @@
                                 <div class="col-md-9"> 
                                     <select class="form-control m-bot15" name="doctor" value=''> 
                                         <?php foreach ($doctors as $doctor) { ?>
-                                            <option value="<?php echo $doctor->name; ?>" <?php
-                                            if (!empty($patient->doctor)) {
-                                                if ($patient->doctor == $doctor->name) {
-                                                    echo 'selected';
-                                                }
+                                        <option value="<?php echo $doctor->name; ?>" <?php
+                                        if (!empty($patient->doctor)) {
+                                            if ($patient->doctor == $doctor->name) {
+                                                echo 'selected';
                                             }
-                                            ?> ><?php echo $doctor->name; ?> </option>
-                                                <?php } ?>
+                                        }
+                                        ?> ><?php echo $doctor->name; ?> </option>
+                                        <?php } ?>
                                     </select>
                                 </div>
                             </div>
@@ -290,15 +320,18 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="exampleInputEmail1"><?php echo lang('name_mother'); ?></label>
+                        <input type="text" class="form-control" name="name_mother" id="exampleInputEmail1" value='' placeholder="">
+                    </div>
 
-
+                    <div class="form-group" style="display: none">
                         <label for="exampleInputEmail1"><?php echo lang('password'); ?></label>
                         <input type="password" class="form-control" name="password" id="exampleInputEmail1" placeholder="********">
 
                     </div>
 
 
-                    <div class="form-group">
+                    <div class="form-group" style="display: none">
                         <label for="exampleInputEmail1"><?php echo lang('email'); ?></label>
                         <input type="text" class="form-control" name="email" id="exampleInputEmail1" value='' placeholder="">
                     </div>
@@ -312,30 +345,34 @@
                         <input type="text" class="form-control" name="phone" id="exampleInputEmail1" value='' placeholder="">
                     </div>
                     <div class="form-group">
+                        <label for="exampleInputEmail1"><?php echo lang('card_sus'); ?></label>
+                        <input type="text" class="form-control" name="sus" id="exampleInputEmail1" value='' placeholder="">
+                    </div>
+                    <div class="form-group">
                         <label for="exampleInputEmail1"><?php echo lang('sex'); ?></label>
                         <select class="form-control m-bot15" name="sex" value=''>
 
-                            <option value="Male" <?php
+                            <option value="Masculino" <?php
                             if (!empty($patient->sex)) {
-                                if ($patient->sex == 'Male') {
+                                if ($patient->sex == 'Masculino') {
                                     echo 'selected';
                                 }
                             }
-                            ?> > Male </option>
-                            <option value="Female" <?php
+                            ?> > Masculino </option>
+                            <option value="Femenino" <?php
                             if (!empty($patient->sex)) {
-                                if ($patient->sex == 'Female') {
+                                if ($patient->sex == 'Femenino') {
                                     echo 'selected';
                                 }
                             }
-                            ?> > Female </option>
-                            <option value="Others" <?php
+                            ?> > Femenino </option>
+                            <option value="Outros" <?php
                             if (!empty($patient->sex)) {
-                                if ($patient->sex == 'Others') {
+                                if ($patient->sex == 'Outros') {
                                     echo 'selected';
                                 }
                             }
-                            ?> > Others </option>
+                            ?> > Outros </option>
                         </select>
                     </div>
 
@@ -353,14 +390,14 @@
                         <label for="exampleInputEmail1"><?php echo lang('blood_group'); ?></label>
                         <select class="form-control m-bot15" name="bloodgroup" value=''>
                             <?php foreach ($groups as $group) { ?>
-                                <option value="<?php echo $group->group; ?>" <?php
-                                if (!empty($patient->bloodgroup)) {
-                                    if ($group->group == $patient->bloodgroup) {
-                                        echo 'selected';
-                                    }
+                            <option value="<?php echo $group->group; ?>" <?php
+                            if (!empty($patient->bloodgroup)) {
+                                if ($group->group == $patient->bloodgroup) {
+                                    echo 'selected';
                                 }
-                                ?> > <?php echo $group->group; ?> </option>
-                                    <?php } ?> 
+                            }
+                            ?> > <?php echo $group->group; ?> </option>
+                            <?php } ?> 
                         </select>
                     </div>
 
@@ -384,9 +421,9 @@
 
 <script src="common/js/codearistos.min.js"></script>
 <script type="text/javascript">
-                                    $(document).ready(function () {
-                                        $(".editbutton").click(function (e) {
-                                            e.preventDefault(e);
+    $(document).ready(function () {
+        $(".editbutton").click(function (e) {
+            e.preventDefault(e);
                                             // Get the record's ID via attribute  
                                             var iid = $(this).attr('data-id');
                                             $('#editPatientForm').trigger("reset");
@@ -410,9 +447,13 @@
                                                 $('#editPatientForm').find('[name="birthdate"]').val(response.patient.birthdate).end()
                                                 $('#editPatientForm').find('[name="bloodgroup"]').val(response.patient.bloodgroup).end()
                                                 $('#editPatientForm').find('[name="p_id"]').val(response.patient.patient_id).end()
+                                                $('#editPatientForm').find('[name="sus"]').val(response.patient.sus).end()
+                                                $('#editPatientForm').find('[name="name_mother"]').val(response.patient.name_mother).end()
+                                                $('#editPatientForm').find('[name="convenio"]').val(response.patient.convenio).end()
+                                                $('#editPatientForm').find('[name="cpf"]').val(response.patient.cpf).end()
                                             });
                                         });
-                                    });
+    });
 </script>
 <script>
     $(document).ready(function () {
@@ -420,3 +461,30 @@
     });
 </script>
 
+
+<?php if ($this->session->flashdata('feedback', 'Adicionado')): ?>
+    <script type="text/javascript">
+      $(document).ready(function() {
+          Swal.fire({
+              position: 'center',
+              type: 'success',
+              //text: 'Operação realizada com sucesso!',
+              title: "<?php echo $this->session->flashdata('feedback', 'Adicionado'); ?>",
+              showConfirmButton: false,
+              timer: 3500
+          });
+      });
+  </script>
+<?php endif; ?>
+<?php if ($this->session->flashdata('feedback_cpf', '')): ?>
+    <script type="text/javascript">
+      $(document).ready(function() {
+          Swal.fire({
+              type: 'error',
+              title: "<?php echo $this->session->flashdata('feedback_cpf', ''); ?>",
+              text: 'Algo deu errado!',
+              footer: '<a href></a>'
+          });
+      });
+  </script>
+<?php endif; ?>

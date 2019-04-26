@@ -29,8 +29,16 @@ class Home extends MX_Controller {
         $this->load->view('dashboard'); // just the header file
         $this->load->view('home', $data);
         $this->load->view('footer');
+        // Redirecionar a página quando logar Recepcionista
         if ($this->ion_auth->in_group(array('Accountant', 'Receptionist'))) {
-            redirect('finance/addPaymentView');
+            redirect('appointment');
+            //redirect('appointment/todays');
+            //redirect('finance/addPaymentView');
+        }
+        // Redirecionar a página quando logar Médico
+        if ($this->ion_auth->in_group(array('Doctor'))) {
+            redirect('appointment/todays');
+ 
         }
         
         if ($this->ion_auth->in_group(array('Patient'))) {

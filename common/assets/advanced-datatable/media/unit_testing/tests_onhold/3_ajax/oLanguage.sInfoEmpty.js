@@ -11,7 +11,7 @@ $(document).ready( function () {
 	oTest.fnWaitTest( 
 		"Info empty language is 'Showing 0 to 0 of 0 entries' by default",
 		function () { oTable.fnFilter("nothinghere"); },
-		function () { return oSettings.oLanguage.sInfoEmpty == "Showing 0 to 0 of 0 entries"; }
+		function () { return oSettings.oLanguage.sInfoEmpty == "Mostrando 0 to 0 of 0 entries"; }
 	);
 	
 	oTest.fnTest( 
@@ -20,7 +20,7 @@ $(document).ready( function () {
 		function () {
 			var bReturn = document.getElementById('example_info').innerHTML.replace( 
 				' '+oSettings.oLanguage.sInfoFiltered.replace( '_MAX_', '57' ), "" ) ==
-					"Showing 0 to 0 of 0 entries";
+					"Mostrando 0 to 0 of 0 entries";
 			return bReturn;
 		}
 	);

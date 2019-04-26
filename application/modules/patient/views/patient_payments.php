@@ -170,27 +170,27 @@
                         <label for="exampleInputEmail1"><?php echo lang('sex'); ?></label>
                         <select class="form-control m-bot15" name="sex" value=''>
 
-                            <option value="Male" <?php
+                            <option value="Masculino" <?php
                             if (!empty($patient->sex)) {
-                                if ($patient->sex == 'Male') {
+                                if ($patient->sex == 'Masculino') {
                                     echo 'selected';
                                 }
                             }
-                            ?> > Male </option>
-                            <option value="Female" <?php
+                            ?> > Masculino </option>
+                            <option value="Feminino" <?php
                             if (!empty($patient->sex)) {
-                                if ($patient->sex == 'Female') {
+                                if ($patient->sex == 'Feminino') {
                                     echo 'selected';
                                 }
                             }
-                            ?> > Female </option>
-                            <option value="Others" <?php
+                            ?> > Feminino </option>
+                            <option value="Outros" <?php
                             if (!empty($patient->sex)) {
-                                if ($patient->sex == 'Others') {
+                                if ($patient->sex == 'Outros') {
                                     echo 'selected';
                                 }
                             }
-                            ?> > Others </option>
+                            ?> > Outros </option>
                         </select>
                     </div>
 
@@ -310,27 +310,27 @@
                         <label for="exampleInputEmail1"><?php echo lang('sex'); ?></label>
                         <select class="form-control m-bot15" name="sex" value=''>
 
-                            <option value="Male" <?php
+                            <option value="Masculino" <?php
                             if (!empty($patient->sex)) {
-                                if ($patient->sex == 'Male') {
+                                if ($patient->sex == 'Masculino') {
                                     echo 'selected';
                                 }
                             }
-                            ?> > Male </option>
-                            <option value="Female" <?php
+                            ?> > Masculino </option>
+                            <option value="Femenino" <?php
                             if (!empty($patient->sex)) {
-                                if ($patient->sex == 'Female') {
+                                if ($patient->sex == 'Femenino') {
                                     echo 'selected';
                                 }
                             }
-                            ?> > Female </option>
-                            <option value="Others" <?php
+                            ?> > Femenino </option>
+                            <option value="Outros" <?php
                             if (!empty($patient->sex)) {
-                                if ($patient->sex == 'Others') {
+                                if ($patient->sex == 'Outros') {
                                     echo 'selected';
                                 }
                             }
-                            ?> > Others </option>
+                            ?> > Outros </option>
                         </select>
                     </div>
 

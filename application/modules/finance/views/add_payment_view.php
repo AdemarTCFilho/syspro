@@ -17,52 +17,52 @@
                     <div class="clearfix">
                         <!--  <div class="col-lg-12"> -->
                         <div class="">
-                           <!--   <section class="panel"> -->
-                            <section class="">
-                                <!--   <div class="panel-body"> -->
-                                <div class="">
-                                    <style> 
-                                        .payment{
-                                            padding-top: 10px;
-                                            padding-bottom: 20px;
-                                            border: none;
+                         <!--   <section class="panel"> -->
+                         <section class="">
+                            <!--   <div class="panel-body"> -->
+                            <div class="">
+                                <style> 
+                                    .payment{
+                                        padding-top: 10px;
+                                        padding-bottom: 20px;
+                                        border: none;
 
-                                        }
-                                        .pad_bot{
-                                            padding-bottom: 5px;
-                                        }  
+                                    }
+                                    .pad_bot{
+                                        padding-bottom: 5px;
+                                    }  
 
-                                        form{ border: 1px solid #ccc;}
-                                    </style>
+                                    form{ border: 1px solid #ccc;}
+                                </style>
 
-                                    <form role="form" id="editPaymentForm" class="clearfix" action="finance/addPayment" method="post" enctype="multipart/form-data">
-                                        <div class="">
-                                            <a data-toggle="modal" href="#myModal">
-                                                <div class="btn-group">
-                                                    <button id="" class="btn green">
-                                                        <i class="fa fa-plus-circle"></i> <?php echo lang('register_new_patient'); ?>
-                                                    </button>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="col-md-8 payment pad_bot">
-                                                <div class="col-md-3 payment_label"> 
-                                                    <label for="exampleInputEmail1"><?php echo lang('patient'); ?></label>
-                                                </div>
-                                                <div class="col-md-9"> 
-                                                    <select class="form-control m-bot15 js-example-basic-single pos_select" id="pos_select" name="patient" value=''> 
-                                                        <option value="">Select .....</option>
-                                                        <option value="add_new" style="color: #41cac0 !important;"><?php echo lang('add_new'); ?></option>
-                                                        <?php foreach ($patients as $patient) { ?>
-                                                            <option value="<?php echo $patient->id; ?>" <?php
-                                                            if (!empty($payment->patient)) {
-                                                                if ($payment->patient == $patient->id) {
-                                                                    echo 'selected';
-                                                                }
+                                <form role="form" id="editPaymentForm" class="clearfix" action="finance/addPayment" method="post" enctype="multipart/form-data">
+                                    <!--<div class="">
+                                        <a data-toggle="modal" href="#myModal">
+                                            <div class="btn-group">
+                                                <button id="" class="btn green">
+                                                    <i class="fa fa-plus-circle"></i> <?php echo lang('register_new_patient'); ?>
+                                                </button>
+                                            </div>
+                                        </a>
+                                    </div>-->
+                                    <div class="col-md-6">
+                                        <div class="col-md-8 payment pad_bot">
+                                            <div class="col-md-3 payment_label"> 
+                                                <label for="exampleInputEmail1"><?php echo lang('patient'); ?></label>
+                                            </div>
+                                            <div class="col-md-9"> 
+                                                <select class="form-control m-bot15 js-example-basic-single pos_select" id="pos_select" name="patient" value=''> 
+                                                    <option value="">Selecionar .....</option>
+                                                    <!--<option value="add_new" style="color: #41cac0 !important;"><?php echo lang('add_new'); ?></option>-->
+                                                    <?php foreach ($patients as $patient) { ?>
+                                                    <option value="<?php echo $patient->id; ?>" <?php
+                                                        if (!empty($payment->patient)) {
+                                                            if ($payment->patient == $patient->id) {
+                                                                echo 'selected';
                                                             }
-                                                            ?> ><?php echo $patient->name; ?> </option>
-                                                                <?php } ?>
+                                                        }
+                                                        ?> ><?php echo $patient->name; ?> </option>
+                                                        <?php } ?>
                                                     </select>
                                                 </div>
                                             </div> 
@@ -126,27 +126,27 @@
                                                     <div class="col-md-9"> 
                                                         <select class="form-control m-bot15" name="p_gender" value=''>
 
-                                                            <option value="Male" <?php
+                                                            <option value="Masculino" <?php
                                                             if (!empty($patient->sex)) {
-                                                                if ($patient->sex == 'Male') {
+                                                                if ($patient->sex == 'Masculino') {
                                                                     echo 'selected';
                                                                 }
                                                             }
-                                                            ?> > Male </option>   
-                                                            <option value="Female" <?php
+                                                            ?> > Masculino </option>
+                                                            <option value="Feminino" <?php
                                                             if (!empty($patient->sex)) {
-                                                                if ($patient->sex == 'Female') {
+                                                                if ($patient->sex == 'Feminino') {
                                                                     echo 'selected';
                                                                 }
                                                             }
-                                                            ?> > Female </option>
-                                                            <option value="Others" <?php
+                                                            ?> > Feminino </option>
+                                                            <option value="Outros" <?php
                                                             if (!empty($patient->sex)) {
-                                                                if ($patient->sex == 'Others') {
+                                                                if ($patient->sex == 'Outros') {
                                                                     echo 'selected';
                                                                 }
                                                             }
-                                                            ?> > Others </option>
+                                                            ?> > Outros </option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -158,205 +158,205 @@
                                                 </div>
                                                 <div class="col-md-9"> 
                                                     <select class="form-control m-bot15 js-example-basic-single add_doctor" id="add_doctor" name="doctor" value=''>  
-                                                        <option value="">Select .....</option>
-                                                        <option value="add_new" style="color: #41cac0 !important;"><?php echo lang('add_new'); ?></option>
+                                                        <option value="">Selecionar .....</option>
+                                                        <!--<option value="add_new" style="color: #41cac0 !important;"><?php echo lang('add_new'); ?></option>-->
                                                         <?php foreach ($doctors as $doctor) { ?>
-                                                            <option value="<?php echo $doctor->id; ?>"<?php
+                                                        <option value="<?php echo $doctor->id; ?>"<?php
                                                             if (!empty($payment->doctor)) {
                                                                 if ($payment->doctor == $doctor->id) {
                                                                     echo 'selected';
                                                                 }
                                                             }
                                                             ?>><?php echo $doctor->name; ?> </option>
-                                                                <?php } ?>
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            <div class="pos_doctor">
-                                                <div class="col-md-8 payment pad_bot">
-                                                    <div class="col-md-3 payment_label"> 
-                                                        <label for="exampleInputEmail1"> <?php echo lang('doctor'); ?> <?php echo lang('name'); ?></label>
-                                                    </div>
-                                                    <div class="col-md-9"> 
-                                                        <input type="text" class="form-control pay_in" name="d_name" value='<?php
-                                                        if (!empty($payment->p_name)) {
-                                                            echo $payment->p_name;
-                                                        }
-                                                        ?>' placeholder="">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-8 payment pad_bot">
-                                                    <div class="col-md-3 payment_label"> 
-                                                        <label for="exampleInputEmail1"> <?php echo lang('doctor'); ?> <?php echo lang('email'); ?></label>
-                                                    </div>
-                                                    <div class="col-md-9"> 
-                                                        <input type="text" class="form-control pay_in" name="d_email" value='<?php
-                                                        if (!empty($payment->p_email)) {
-                                                            echo $payment->p_email;
-                                                        }
-                                                        ?>' placeholder="">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-8 payment pad_bot">
-                                                    <div class="col-md-3 payment_label"> 
-                                                        <label for="exampleInputEmail1"> <?php echo lang('doctor'); ?> <?php echo lang('phone'); ?></label>
-                                                    </div>
-                                                    <div class="col-md-9"> 
-                                                        <input type="text" class="form-control pay_in" name="d_phone" value='<?php
-                                                        if (!empty($payment->p_phone)) {
-                                                            echo $payment->p_phone;
-                                                        }
-                                                        ?>' placeholder="">
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-8 panel">
-                                            </div>
-
-
-                                            <div class="col-md-8 payment">
-                                                <div class="form-group last">
-                                                    <div class="col-md-3 payment_label"> 
-                                                        <label for="exampleInputEmail1"> <?php echo lang('select'); ?></label>
-                                                    </div>
-                                                    <div class="col-md-9">
-                                                        <select name="category_name[]" id="" class="multi-select" multiple="" id="my_multi_select3" >
-                                                            <?php foreach ($categories as $category) { ?>
-                                                                <option class="ooppttiioonn" data-id="<?php echo $category->c_price; ?>" data-idd="<?php echo $category->id; ?>" data-cat_name="<?php echo $category->category; ?>" value="<?php echo $category->category; ?>" <?php
-                                                                if (!empty($payment->category_name)) {
-                                                                    $category_name = $payment->category_name;
-                                                                    $category_name1 = explode(',', $category_name);
-                                                                    foreach ($category_name1 as $category_name2) {
-                                                                        $category_name3 = explode('*', $category_name2);
-                                                                        if ($category_name3[0] == $category->category) {
-                                                                            echo 'selected';
-                                                                        }
-                                                                    }
-                                                                }
-                                                                ?>><?php echo $category->category; ?></option>
-                                                                    <?php } ?>
+                                                            <?php } ?>
                                                         </select>
                                                     </div>
                                                 </div>
-                                            </div>
 
-
-                                        </div>
-
-
-                                        <div class="col-md-2 qfloww"></div>
-
-                                        <div class="col-md-4">
-                                            <div class="col-md-12 payment right-six">
-                                                <div class="col-md-3 payment_label"> 
-                                                    <label for="exampleInputEmail1"><?php echo lang('sub_total'); ?> </label>
-                                                </div>
-                                                <div class="col-md-9"> 
-                                                    <input type="text" class="form-control pay_in" name="subtotal" id="subtotal" value='<?php
-                                                    if (!empty($payment->amount)) {
-
-                                                        echo $payment->amount;
-                                                    }
-                                                    ?>' placeholder=" " disabled>
-                                                </div>
-
-                                            </div>
-
-
-                                            <div class="col-md-12 payment right-six">
-                                                <div class="col-md-3 payment_label"> 
-                                                    <label for="exampleInputEmail1"><?php echo lang('discount'); ?>  <?php
-                                                        if ($discount_type == 'percentage') {
-                                                            echo ' (%)';
-                                                        }
-                                                        ?> </label>
-                                                </div>
-                                                <div class="col-md-9"> 
-                                                    <input type="text" class="form-control pay_in" name="discount" id="dis_id" value='<?php
-                                                    if (!empty($payment->discount)) {
-                                                        $discount = explode('*', $payment->discount);
-                                                        echo $discount[0];
-                                                    }
-                                                    ?>' placeholder="">
+                                                <div class="pos_doctor">
+                                                    <div class="col-md-8 payment pad_bot">
+                                                        <div class="col-md-3 payment_label"> 
+                                                            <label for="exampleInputEmail1"> <?php echo lang('doctor'); ?> <?php echo lang('name'); ?></label>
+                                                        </div>
+                                                        <div class="col-md-9"> 
+                                                            <input type="text" class="form-control pay_in" name="d_name" value='<?php
+                                                            if (!empty($payment->p_name)) {
+                                                                echo $payment->p_name;
+                                                            }
+                                                            ?>' placeholder="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-8 payment pad_bot">
+                                                        <div class="col-md-3 payment_label"> 
+                                                            <label for="exampleInputEmail1"> <?php echo lang('doctor'); ?> <?php echo lang('email'); ?></label>
+                                                        </div>
+                                                        <div class="col-md-9"> 
+                                                            <input type="text" class="form-control pay_in" name="d_email" value='<?php
+                                                            if (!empty($payment->p_email)) {
+                                                                echo $payment->p_email;
+                                                            }
+                                                            ?>' placeholder="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-8 payment pad_bot">
+                                                        <div class="col-md-3 payment_label"> 
+                                                            <label for="exampleInputEmail1"> <?php echo lang('doctor'); ?> <?php echo lang('phone'); ?></label>
+                                                        </div>
+                                                        <div class="col-md-9"> 
+                                                            <input type="text" class="form-control pay_in" name="d_phone" value='<?php
+                                                            if (!empty($payment->p_phone)) {
+                                                                echo $payment->p_phone;
+                                                            }
+                                                            ?>' placeholder="">
+                                                        </div>
+                                                    </div>
                                                 </div>
 
-                                            </div>
-
-                                            <div class="col-md-12 payment right-six">
-                                                <div class="col-md-3 payment_label"> 
-                                                    <label for="exampleInputEmail1"><?php echo lang('gross_total'); ?> </label>
-                                                </div>
-                                                <div class="col-md-9"> 
-                                                    <input type="text" class="form-control pay_in" name="grsss" id="gross" value='<?php
-                                                    if (!empty($payment->gross_total)) {
-
-                                                        echo $payment->gross_total;
-                                                    }
-                                                    ?>' placeholder=" " disabled>
+                                                <div class="col-md-8 panel">
                                                 </div>
 
-                                            </div>
-                                            <div class="col-md-12 payment right-six">
-                                                <div class="col-md-3 payment_label"> 
-                                                    <?php
-                                                    if (empty($payment)) {
-                                                        echo lang('amount_received');
-                                                    } else {
-                                                        echo lang('deposit') . ' 1 <br>';
-                                                        echo date('d/m/Y', $payment->date);
-                                                    };
-                                                    ?> 
+
+                                                <div class="col-md-8 payment">
+                                                    <div class="form-group last">
+                                                        <div class="col-md-3 payment_label"> 
+                                                            <label for="exampleInputEmail1"> <?php echo lang('select'); ?></label>
+                                                        </div>
+                                                        <div class="col-md-9">
+                                                            <select name="category_name[]" id="" class="multi-select" multiple="" id="my_multi_select3" >
+                                                                <?php foreach ($categories as $category) { ?>
+                                                                <option class="ooppttiioonn" data-id="<?php echo $category->c_price; ?>" data-idd="<?php echo $category->id; ?>" data-cat_name="<?php echo $category->category; ?>" value="<?php echo $category->category; ?>" <?php
+                                                                    if (!empty($payment->category_name)) {
+                                                                        $category_name = $payment->category_name;
+                                                                        $category_name1 = explode(',', $category_name);
+                                                                        foreach ($category_name1 as $category_name2) {
+                                                                            $category_name3 = explode('*', $category_name2);
+                                                                            if ($category_name3[0] == $category->category) {
+                                                                                echo 'selected';
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                    ?>><?php echo $category->category; ?></option>
+                                                                    <?php } ?>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
                                                 </div>
-                                                <div class="col-md-9"> 
-                                                    <input type="text" class="form-control pay_in" name="amount_received" id="amount_received" value='<?php
-                                                           if (!empty($payment->amount_received)) {
 
-                                                               echo $payment->amount_received;
-                                                           }
-                                                           ?>' placeholder=" ">
-                                                </div>
 
-                                            </div>
+                                                <div class="col-md-2 qfloww"></div>
 
-                                            <?php
-                                            if (!empty($payment)) {
-                                                $deposits = $this->finance_model->getDepositByPaymentId($payment->id);
-                                                $i = 1;
-                                                foreach ($deposits as $deposit) {
+                                                <div class="col-md-4">
+                                                    <div class="col-md-12 payment right-six">
+                                                        <div class="col-md-3 payment_label"> 
+                                                            <label for="exampleInputEmail1"><?php echo lang('sub_total'); ?> </label>
+                                                        </div>
+                                                        <div class="col-md-9"> 
+                                                            <input type="text" class="form-control pay_in" name="subtotal" id="subtotal" value='<?php
+                                                            if (!empty($payment->amount)) {
 
-                                                    if (empty($deposit->amount_received_id)) {
-                                                        $i = $i + 1;
-                                                        ?>
-                                                        <div class="col-md-12 payment right-six">
-                                                            <div class="col-md-3 payment_label"> 
-                                                                <label for="exampleInputEmail1"><?php echo lang('deposit'); ?> <?php echo $i . '<br>';
-                                                        echo date('d/m/Y', $deposit->date); ?> </label>
+                                                                echo $payment->amount;
+                                                            }
+                                                            ?>' placeholder=" " disabled>
+                                                        </div>
+
+                                                    </div>
+
+
+                                                    <div class="col-md-12 payment right-six">
+                                                        <div class="col-md-3 payment_label"> 
+                                                            <label for="exampleInputEmail1"><?php echo lang('discount'); ?>  <?php
+                                                                if ($discount_type == 'percentage') {
+                                                                    echo ' (%)';
+                                                                }
+                                                                ?> </label>
                                                             </div>
                                                             <div class="col-md-9"> 
-                                                                <input type="text" class="form-control pay_in" name="deposit_edit_amount[]" id="amount_received" value='<?php echo $deposit->deposited_amount; ?>' placeholder=" ">
-                                                                <input type="hidden" class="form-control pay_in" name="deposit_edit_id[]" id="amount_received" value='<?php echo $deposit->id; ?>' placeholder=" ">
+                                                                <input type="text" class="form-control pay_in" name="discount" id="dis_id" value='<?php
+                                                                if (!empty($payment->discount)) {
+                                                                    $discount = explode('*', $payment->discount);
+                                                                    echo $discount[0];
+                                                                }
+                                                                ?>' placeholder="">
                                                             </div>
 
                                                         </div>
-            <?php
-        }
-    }
-}
-?>
 
-                                            <div class="col-md-12 payment right-six">
-                                                <div class="col-md-12">
-                                                    <div class="col-md-3"> 
-                                                    </div>  
-                                                    <div class="col-md-6"> 
-                                                        <button type="submit" name="submit" class="btn btn-info"><?php echo lang('submit'); ?></button>
-                                                    </div>
-                                                    <div class="col-md-3"> 
-                                                    </div> 
-                                                </div>
-                                            </div>
+                                                        <div class="col-md-12 payment right-six">
+                                                            <div class="col-md-3 payment_label"> 
+                                                                <label for="exampleInputEmail1"><?php echo lang('gross_total'); ?> </label>
+                                                            </div>
+                                                            <div class="col-md-9"> 
+                                                                <input type="text" class="form-control pay_in" name="grsss" id="gross" value='<?php
+                                                                if (!empty($payment->gross_total)) {
+
+                                                                    echo $payment->gross_total;
+                                                                }
+                                                                ?>' placeholder=" " disabled>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="col-md-12 payment right-six">
+                                                            <div class="col-md-3 payment_label"> 
+                                                                <?php
+                                                                if (empty($payment)) {
+                                                                    echo lang('amount_received');
+                                                                } else {
+                                                                    echo lang('deposit') . ' 1 <br>';
+                                                                    echo date('d/m/Y', $payment->date);
+                                                                };
+                                                                ?> 
+                                                            </div>
+                                                            <div class="col-md-9"> 
+                                                                <input type="text" class="form-control pay_in" name="amount_received" id="amount_received" value='<?php
+                                                                if (!empty($payment->amount_received)) {
+
+                                                                 echo $payment->amount_received;
+                                                             }
+                                                             ?>' placeholder=" ">
+                                                         </div>
+
+                                                     </div>
+
+                                                     <?php
+                                                     if (!empty($payment)) {
+                                                        $deposits = $this->finance_model->getDepositByPaymentId($payment->id);
+                                                        $i = 1;
+                                                        foreach ($deposits as $deposit) {
+
+                                                            if (empty($deposit->amount_received_id)) {
+                                                                $i = $i + 1;
+                                                                ?>
+                                                                <div class="col-md-12 payment right-six">
+                                                                    <div class="col-md-3 payment_label"> 
+                                                                        <label for="exampleInputEmail1"><?php echo lang('deposit'); ?> <?php echo $i . '<br>';
+                                                                            echo date('d/m/Y', $deposit->date); ?> </label>
+                                                                        </div>
+                                                                        <div class="col-md-9"> 
+                                                                            <input type="text" class="form-control pay_in" name="deposit_edit_amount[]" id="amount_received" value='<?php echo $deposit->deposited_amount; ?>' placeholder=" ">
+                                                                            <input type="hidden" class="form-control pay_in" name="deposit_edit_id[]" id="amount_received" value='<?php echo $deposit->id; ?>' placeholder=" ">
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <?php
+                                                                }
+                                                            }
+                                                        }
+                                                        ?>
+
+                                                        <div class="col-md-12 payment right-six">
+                                                            <div class="col-md-12">
+                                                                <div class="col-md-3"> 
+                                                                </div>  
+                                                                <div class="col-md-6"> 
+                                                                    <button type="submit" name="submit" class="btn btn-info"><?php echo lang('submit'); ?></button>
+                                                                </div>
+                                                                <div class="col-md-3"> 
+                                                                </div> 
+                                                            </div>
+                                                        </div>
                                             <!--
                                             <div class="col-md-12 payment">
                                                 <div class="col-md-3 payment_label"> 
@@ -370,29 +370,29 @@ if (!empty($payment->vat)) {
 ?>' placeholder="%">
                                                 </div>
                                             </div>
-                                            -->
+                                        -->
 
-                                            <input type="hidden" name="id" value='<?php
-if (!empty($payment->id)) {
-    echo $payment->id;
-}
-?>'>
-                                            <div class="row">
-                                            </div>
-                                            <div class="form-group">
-                                            </div>
-
+                                        <input type="hidden" name="id" value='<?php
+                                        if (!empty($payment->id)) {
+                                            echo $payment->id;
+                                        }
+                                        ?>'>
+                                        <div class="row">
                                         </div>
-                                    </form>
-                                </div>
-                            </section>
-                        </div>
+                                        <div class="form-group">
+                                        </div>
+
+                                    </div>
+                                </form>
+                            </div>
+                        </section>
                     </div>
                 </div>
             </div>
-        </section>
-
+        </div>
     </section>
+
+</section>
 </section>
 <!--main content end-->
 <!--footer start-->
@@ -415,39 +415,39 @@ if (!empty($payment->id)) {
                 $("#editPaymentForm .qfloww").append('<div class="remove1" id="id-div' + idd + '">  ' + $(this).data("cat_name") + '- <?php echo $settings->currency; ?> ' + $(this).data('id') + '</div><br>')
             });
             var discount = $('#dis_id').val();
-<?php
-if ($discount_type == 'flat') {
-    ?>
+            <?php
+            if ($discount_type == 'flat') {
+                ?>
                 var gross = tot - discount;
-<?php } else { ?>
-                var gross = tot - tot * discount / 100;
-<?php } ?>
-            $('#editPaymentForm').find('[name="subtotal"]').val(tot).end()
-            $('#editPaymentForm').find('[name="grsss"]').val(gross)
-        }
+                <?php } else { ?>
+                    var gross = tot - tot * discount / 100;
+                    <?php } ?>
+                    $('#editPaymentForm').find('[name="subtotal"]').val(tot).end()
+                    $('#editPaymentForm').find('[name="grsss"]').val(gross)
+                }
 
-        );
+                );
 
 
-    });
+});
 
-    $(document).ready(function () {
-        $('#dis_id').keyup(function () {
-            var val_dis = 0;
-            var amount = 0;
-            var ggggg = 0;
-            amount = $('#subtotal').val();
-            val_dis = this.value;
-<?php
-if ($discount_type == 'flat') {
-    ?>
-                ggggg = amount - val_dis;
-<?php } else { ?>
+$(document).ready(function () {
+    $('#dis_id').keyup(function () {
+        var val_dis = 0;
+        var amount = 0;
+        var ggggg = 0;
+        amount = $('#subtotal').val();
+        val_dis = this.value;
+        <?php
+        if ($discount_type == 'flat') {
+            ?>
+            ggggg = amount - val_dis;
+            <?php } else { ?>
                 ggggg = amount - amount * val_dis / 100;
-<?php } ?>
-            $('#editPaymentForm').find('[name="grsss"]').val(ggggg)
-        });
-    });
+                <?php } ?>
+                $('#editPaymentForm').find('[name="grsss"]').val(ggggg)
+            });
+});
 
 </script> 
 
@@ -464,17 +464,17 @@ if ($discount_type == 'flat') {
             $("#editPaymentForm .qfloww").append('<div class="remove1" id="id-div' + idd + '">  ' + $(this).data("cat_name") + '- <?php echo $settings->currency; ?> ' + $(this).data('id') + '</div><br>')
         });
         var discount = $('#dis_id').val();
-<?php
-if ($discount_type == 'flat') {
-    ?>
+        <?php
+        if ($discount_type == 'flat') {
+            ?>
             var gross = tot - discount;
-<?php } else { ?>
-            var gross = tot - tot * discount / 100;
-<?php } ?>
-        $('#editPaymentForm').find('[name="subtotal"]').val(tot).end()
-        $('#editPaymentForm').find('[name="grsss"]').val(gross)
+            <?php } else { ?>
+                var gross = tot - tot * discount / 100;
+                <?php } ?>
+                $('#editPaymentForm').find('[name="subtotal"]').val(tot).end()
+                $('#editPaymentForm').find('[name="grsss"]').val(gross)
 
-    });
+            });
 
     $(document).ready(function () {
         $('#dis_id').keyup(function () {
@@ -483,15 +483,15 @@ if ($discount_type == 'flat') {
             var ggggg = 0;
             amount = $('#subtotal').val();
             val_dis = this.value;
-<?php
-if ($discount_type == 'flat') {
-    ?>
+            <?php
+            if ($discount_type == 'flat') {
+                ?>
                 ggggg = amount - val_dis;
-<?php } else { ?>
-                ggggg = amount - amount * val_dis / 100;
-<?php } ?>
-            $('#editPaymentForm').find('[name="grsss"]').val(ggggg)
-        });
+                <?php } else { ?>
+                    ggggg = amount - amount * val_dis / 100;
+                    <?php } ?>
+                    $('#editPaymentForm').find('[name="grsss"]').val(ggggg)
+                });
     });
 
 </script> 
@@ -507,34 +507,34 @@ if ($discount_type == 'flat') {
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title"><i class="fa fa-plus-circle"></i> Patient Registration</h4>
+                <h4 class="modal-title"><i class="fa fa-plus-circle"></i> Registro de paciente</h4>
             </div>
             <div class="modal-body">
                 <form role="form" action="patient/addNew?redirect=payment" method="post" enctype="multipart/form-data">
 
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Name</label>
+                    <label for="exampleInputEmail1">Nome</label>
                         <input type="text" class="form-control" name="name" id="exampleInputEmail1" value='' placeholder="">
                     </div>
 
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Address</label>
+                        <label for="exampleInputEmail1">Endereço</label>
                         <input type="text" class="form-control" name="address" id="exampleInputEmail1" value='' placeholder="">
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Phone</label>
+                        <label for="exampleInputEmail1">Telefone</label>
                         <input type="text" class="form-control" name="phone" id="exampleInputEmail1" value='' placeholder="">
                     </div>
 
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Image</label>
+                        <label for="exampleInputEmail1">Imagem</label>
                         <input type="file" name="img_url">
                     </div>
 
                     <input type="hidden" name="id" value=''>
 
                     <section class="">
-                        <button type="submit" name="submit" class="btn btn-info">Submit</button>
+                        <button type="submit" name="submit" class="btn btn-info">Enviar</button>
                     </section>
                 </form>
 

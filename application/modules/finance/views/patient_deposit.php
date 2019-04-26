@@ -97,7 +97,7 @@
                                             <?php } ?>
                                             <a class="btn btn-xs invoicebutton width_auto" title="<?php echo lang('invoice');?>" style="color: #fff; width: 23px;" href="finance/invoice?id=<?php echo $payment->id; ?>"><i class="fa fa-file-text"></i> </a>
                                             <?php if ($this->ion_auth->in_group(array('admin', 'Accountant', 'Receptionist'))) { ?> 
-                                                <a class="btn btn-info btn-xs delete_button width_auto" title="<?php echo lang('delete');?>" style="width: 23px;"  href="finance/delete?id=<?php echo $payment->id; ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-trash-o"></i> </a>
+                                                <a class="btn btn-info btn-xs delete_button width_auto" title="<?php echo lang('delete');?>" style="width: 23px;"  href="finance/delete?id=<?php echo $payment->id; ?>" onclick="return confirm('Tem certeza de que deseja excluir este item?');"><i class="fa fa-trash-o"></i> </a>
                                             <?php } ?>
                                             </button>
                                         </td>
@@ -125,7 +125,7 @@
                                                     <button type="button" class="btn btn-info btn-xs btn_width editbutton" title="<?php echo lang('edit');?>" style="width: 23px;" data-toggle="modal" data-id="<?php echo $deposit->id; ?>"><i class="fa fa-edit"></i> Edit</button> 
                                                 <?php } ?>
                                                 <?php if ($this->ion_auth->in_group(array('admin', 'Accountant', 'Receptionist'))) { ?> 
-                                                    <a class="btn btn-info btn-xs delete_button width_auto" title="<?php echo lang('delete');?>" style="width: 23px;" href="finance/deleteDeposit?id=<?php echo $deposit->id; ?>&patient=<?php echo $patient->id; ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-trash-o"></i></a>
+                                                    <a class="btn btn-info btn-xs delete_button width_auto" title="<?php echo lang('delete');?>" style="width: 23px;" href="finance/deleteDeposit?id=<?php echo $deposit->id; ?>&patient=<?php echo $patient->id; ?>" onclick="return confirm('Tem certeza de que deseja excluir este item?');"><i class="fa fa-trash-o"></i></a>
                                                 <?php } ?>
                                                 </button>
                                             </td>
@@ -294,7 +294,7 @@
                     <div class=payment_label"> 
                         <label for="exampleInputEmail1"><?php echo lang('invoice'); ?></label> 
                         <select class="form-control m-bot15 js-example-basic-single" id="" name="payment_id" value=''> 
-                            <option value="">Select .....</option>
+                            <option value="">Selecionar .....</option>
                             <?php foreach ($payments as $payment) { ?>
                                 <option value="<?php echo $payment->id; ?>" <?php
                                 if (!empty($deposit->payment_id)) {
@@ -376,7 +376,7 @@
                     <div class=payment_label"> 
                         <label for="exampleInputEmail1"><?php echo lang('invoice'); ?></label> 
                         <select class="form-control m-bot15 js-example-basic-single" id="" name="payment_id" value=''> 
-                            <option value="">Select .....</option>
+                            <option value="">Selecionar .....</option>
                             <?php foreach ($payments as $payment) { ?>
                                 <option value="<?php echo $payment->id; ?>" <?php
                                 if (!empty($deposit->payment_id)) {

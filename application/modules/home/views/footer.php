@@ -1,6 +1,6 @@
 <footer class="site-footer">
     <div class="text-center">
-        20<?php echo date('y'); ?> &copy; <?php echo $this->db->get('settings')->row()->system_vendor; ?> | FACS SYSTEM.
+        20<?php echo date('y'); ?> &copy; PEP-MED.
         <a href="<?php echo current_full_url() . '#'; ?>" class="go-top">
             <i class="fa fa-angle-up"></i>
         </a>
@@ -37,12 +37,16 @@
 <script src="common/js/jquery.cookie.js"></script>
 <!--common script for all pages--> 
 <script src="common/js/common-scripts.js"></script>
+<script src="common/js/script.js"></script>
 <script class="include" type="text/javascript" src="common/js/jquery.dcjqaccordion.2.7.js"></script>
 <!--script for this page only-->
 <script src="common/js/editable-table.js"></script>
 <script src="common/assets/fullcalendar/fullcalendar.js"></script>
-<script src='common/assets/fullcalendar/locale/en.js'></script>
+<script src='common/assets/fullcalendar/locale/pt-br.js'></script>
 
+<script src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js'></script>
+
+<script src='common/assets/sweetalert2/dist/sweetalert2.min.js'></script>
 
 <style>
     
@@ -86,7 +90,7 @@
 <?php } ?>
 
             "language": {
-                "lengthMenu": "_MENU_ records per page",
+                "lengthMenu": "Mostrando _MENU_ registros de página",
 
             }
 
@@ -161,7 +165,7 @@
                     {
                         left: 'prev,next today',
                         center: 'title',
-                        right: 'month,agendaWeek,agendaDay',
+                        right: 'agendaDay,agendaWeek,month',
                     },
             /*    timeFormat: {// for event elements
              'month': 'h:mm TT A {h:mm TT}', // default
@@ -182,9 +186,9 @@
             editable: false,
             selectable: false,
             lazyFetching: true,
-            minTime: "6:00:00",
-            maxTime: "24:00:00",
-            defaultView: 'month',
+            minTime: "7:00:00",
+            maxTime: "18:00:00",
+            defaultView: 'agendaDay',
             allDayDefault: false,
             displayEventEnd: true,
             timezone: false,

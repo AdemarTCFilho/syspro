@@ -387,7 +387,7 @@ $(document).ready( function () {
 		"Filter 'nothinghere'",
 		function () { $('#example_filter input').val("nothinghere").keyup(); },
 		function () { return $('#example tbody tr:eq(0) td:eq(0)').html() == 
-			"No matching records found"; }
+			"Nenhum registro correspondente encontrado"; }
 	);
 	
 	oTest.fnTest(

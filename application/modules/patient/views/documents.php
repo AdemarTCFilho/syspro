@@ -43,7 +43,7 @@
                                         </td>
                                         <td class="no-print">
                                             <a class="btn btn-info btn-xs" href="<?php echo $file->url; ?>" download> <?php echo lang('download'); ?> </a>
-                                            <a class="btn btn-info btn-xs delete_button" href="patient/deletePatientMaterial?id=<?php echo $file->id; ?>&redirect=documents"onclick="return confirm('Are you sure you want to delete this item?');"> X </a>
+                                            <a class="btn btn-info btn-xs delete_button" href="patient/deletePatientMaterial?id=<?php echo $file->id; ?>&redirect=documents"onclick="return confirm('Tem certeza de que deseja excluir este item?');"> X </a>
                                         </td>
                                     </tr>
                                 <?php } ?>

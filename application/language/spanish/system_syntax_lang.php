@@ -58,10 +58,10 @@ $lang['see_all_payments'] = 'Ver todos los pagos';
 $lang['see_all_medicines'] = 'Ver todas las medicinas';
 $lang['payment_today'] = 'Pago Hoy';
 $lang['payments_today'] = 'Pagos Hoy';
-$lang['patient_registered_today'] = 'Paciente registrado hoy';
-$lang['patients_registered_today'] = 'Pacientes Registrados Hoy';
-$lang['medicine_registered_today'] = 'Medicina registrada hoy';
-$lang['medicine_registered_today'] = 'Medicamentos registrados hoy';
+$lang['patient_registered_today'] = 'Paciente cadastrados hoy';
+$lang['patients_registered_today'] = 'Pacientes cadastrados Hoy';
+$lang['medicine_registered_today'] = 'Medicina cadastrados hoy';
+$lang['medicine_registered_today'] = 'Medicamentos cadastrados hoy';
 
 $lang['log_out'] = 'Cerrar sesión';
 
@@ -497,7 +497,7 @@ $lang['no_bed_is_available_for_allotment'] = 'No hay cama disponible para la asi
 $lang['payment_today'] = 'Pago Hoy';
 $lang['payments_today'] = 'Pagos Hoy';
 $lang['patient_registerred_today'] = 'Paciente registrado hoy';
-$lang['patients_registerred_today'] = 'Los pacientes registrados hoy';
+$lang['patients_registerred_today'] = 'Los pacientes cadastrados hoy';
 $lang['donor_registerred_today'] = 'Donante registrado hoy';
 $lang['donors_registerred_today'] = 'Donantes registrados hoy';
 $lang['medicine_registerred_today'] = 'Medicina registrada hoy';

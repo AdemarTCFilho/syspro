@@ -20,7 +20,7 @@ class Pharmacy extends MX_Controller {
         if (!$this->ion_auth->logged_in()) {
             redirect('auth/login', 'refresh');
         }
-        if (!$this->ion_auth->in_group(array('admin', 'Accountant', 'Pharmacist'))) {
+        if (!$this->ion_auth->in_group(array('admin', 'Accountant', 'Pharmacist', 'Laboratorist'))) {
             redirect('home/permission');
         }
     }

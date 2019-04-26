@@ -45,6 +45,7 @@ $lang['department'] = 'Departamento';
 $lang['human_resources'] = 'Recursos humanos';
 $lang['financial_activities'] = 'Atividades Financeiras';
 $lang['settings'] = 'Configurações';
+$lang['specialty'] = 'Especialidade';
 $lang['profile'] = 'Perfil';
 $lang['my_profile'] = 'Meu perfil';
 $lang['my_consultant'] = 'Meu consultor';
@@ -58,10 +59,10 @@ $lang['see_all_payments'] = 'Ver todos os pagamentos';
 $lang['see_all_medicines'] = 'Ver todos os medicamentos';
 $lang['payment_today'] = 'Pagamento Hoje';
 $lang['payments_today'] = 'Pagamentos hoje';
-$lang['patient_registered_today'] = 'Paciente registrado hoje';
-$lang['patients_registered_today'] = 'Pacientes registrados hoje';
-$lang['medicine_registered_today'] = 'Medicina registrada hoje';
-$lang['medicine_registered_today'] = 'Medicamentos registrados hoje';
+$lang['patient_registered_today'] = 'Paciente cadastrados hoje';
+$lang['patients_registered_today'] = 'Pacientes cadastrados hoje';
+$lang['medicine_registered_today'] = 'Medicina cadastrados hoje';
+$lang['medicine_registered_today'] = 'Medicamentos cadastrados hoje';
 
 $lang['log_out'] = 'Sair';
 
@@ -70,9 +71,10 @@ $lang['log_out'] = 'Sair';
 
 
 //sidebar
-$lang['dashboard'] = 'Painel de controle';
+$lang['dashboard'] = 'Agenda Médica';
 $lang['all_hospitals'] = 'Atividades Financeiras';
 $lang['create_new_hospital'] = 'Configurações';
+$lang['ambulatory'] = 'Ambulatório';
 
 
 
@@ -95,19 +97,22 @@ $lang['email'] = 'o email';
 $lang['address'] = 'Endereço';
 $lang['phone'] = 'telefone';
 $lang['password'] = 'Senha';
+$lang['crm'] = 'CRM';
 
 // Patient
 $lang['add_patient'] = 'Adicionar Paciente';
-$lang['register_new_patient'] = 'Registrar Paciente';
+$lang['register_new_patient'] = 'Cadastrado Paciente';
 $lang['edit_patient'] = 'Editar Paciente';
 $lang['birth_date'] = 'Data de nascimento';
 $lang['blood_group'] = 'Grupo sanguíneo';
-$lang['due_balance'] = 'Equilíbrio devedor';
+$lang['due_balance'] = 'Saldo devedor';
 $lang['invoice'] = 'Fatura';
 $lang['details'] = 'Detalhes';
 $lang['bio_graph'] = 'Bio Graph';
 $lang['patient_id'] = 'ID do paciente';
 $lang['gender'] = 'Gênero';
+$lang['card_sus'] = 'Cartão Nacional de Saúde';
+$lang['name_mother'] = 'Nome da Mãe';
 
 
 
@@ -115,12 +120,12 @@ $lang['gender'] = 'Gênero';
 
 $lang['appointments'] = 'Agendamentos';
 $lang['appointment'] = 'Agendamento';
-$lang['id'] = 'Identidade';
+$lang['id'] = 'Cód. Agend';
 $lang['date-time'] = 'Data hora';
 $lang['remarks'] = 'Observações';
-$lang['add_appointment'] = 'Adicionar nomeação';
+$lang['add_appointment'] = 'Adicionar agendamento';
 $lang['edit_appointment'] = 'Editar nomeação';
-
+$lang['status_appointment'] = 'Situação';
 
 // Nurse
 $lang['add_nurse'] = 'Adicionar enfermeira';
@@ -141,7 +146,7 @@ $lang['edit_accountant'] = 'Editar contador';
 
 // Financial Activities
 $lang['payments'] = 'Pagamentos';
-$lang['date'] = 'Encontro';
+$lang['date'] = 'Data';
 $lang['sub_total'] = 'Sub total';
 $lang['discount'] = 'Desconto';
 $lang['vat'] = 'Cuba';
@@ -218,11 +223,11 @@ $lang['donor'] = 'Doador';
 $lang['donor_list'] = 'Lista de doadores';
 $lang['add_donor'] = 'Adicionar Doador';
 $lang['edit_donor'] = 'Editar doador';
-$lang['age'] = 'Era';
+$lang['age'] = 'Idade';
 $lang['sex'] = 'Sexo';
 $lang['last_donation_date'] = 'Data da última doação';
 $lang['male'] = 'Masculino';
-$lang['female'] = 'Fêmea';
+$lang['female'] = 'Feminino';
 $lang['blood_bank'] = 'Banco de sangue';
 $lang['update_blood_bank'] = 'Atualizar Sangue Banco';
 $lang['group'] = 'Grupo';
@@ -284,7 +289,7 @@ $lang['manage_profile'] = 'Gerenciar Perfil';
 $lang['edit'] = 'Editar';
 $lang['info'] = 'Info';
 $lang['delete'] = 'Excluir';
-$lang['history'] = 'História';
+$lang['history'] = 'Queixa Principal:'; //Histórico do Paciente
 
 
 
@@ -296,8 +301,8 @@ $lang['gross_expense'] = 'Despesa bruta';
 $lang['total'] = 'Total';
 $lang['sub_total'] = 'Sub Total';
 $lang['due_amount'] = 'Valor devedor';
-$lang['due_balance'] = 'Equilíbrio devedor';
-$lang['patient_id'] = 'Identificação do paciente';
+$lang['due_balance'] = 'Saldo devedor';
+$lang['patient_id'] = 'Cód. paciente';
 
 $lang['unpaid'] = 'Não remunerado';
 $lang['paid_partially'] = 'Pago parcialmente';
@@ -314,9 +319,9 @@ $lang['bill_to'] = 'Projeto de lei para';
 
 $lang['patient'] = 'Paciente';
 
-$lang['refd_by_doctor'] = 'Refd By Médico';
+$lang['refd_by_doctor'] = 'Médico';
 
-$lang['date'] = 'Encontro';
+$lang['date'] = 'Data';
 
 $lang['sub_total'] = 'Sub Total';
 
@@ -333,7 +338,7 @@ $lang['all'] = 'Todos';
 $lang['today'] = 'Hoje';
 $lang['yesterday'] = 'Ontem';
 $lang['all_bills'] = 'Todas as contas';
-$lang['date'] = 'Encontro';
+$lang['date'] = 'Data';
 $lang['bill_amount'] = 'Montante de dinheiro';
 $lang['deposits'] = 'Depósitos';
 $lang['deposit'] = 'Depósito';
@@ -457,8 +462,8 @@ $lang['files'] = 'arquivos';
 $lang['prescription'] = 'Prescrição';
 
 $lang['view'] = 'Visão';
-$lang['note'] = 'Nota';
-$lang['medication'] = 'Medicação';
+$lang['note'] = 'Diagnóstico(s) Definido(s):'; //Nota
+$lang['medication'] = 'Hipótese(s) Diagnóstica(s):'; //Medicação
 $lang['add_prescription'] = 'Adicionar prescrição';
 $lang['edit_prescription'] = 'Editar Prescrição';
 
@@ -498,10 +503,10 @@ $lang['add_a_allotment'] = 'Adicionar uma alocação';
 $lang['no_bed_is_available_for_allotment'] = 'Nenhuma leito está disponível para alocação';
 $lang['payment_today'] = 'Pagamento Hoje';
 $lang['payments_today'] = 'Pagamentos hoje';
-$lang['patient_registerred_today'] = 'Paciente registrado hoje';
-$lang['patients_registerred_today'] = 'Pacientes registrados hoje';
-$lang['donor_registerred_today'] = 'Doador registrado hoje';
-$lang['donors_registerred_today'] = 'Doador registrado hoje';
+$lang['patient_registerred_today'] = 'Paciente cadastrado hoje';
+$lang['patients_registerred_today'] = 'Pacientes cadastrados hoje';
+$lang['donor_registerred_today'] = 'Doador cadastrado hoje';
+$lang['donors_registerred_today'] = 'Doador cadastrado hoje';
 $lang['medicine_registerred_today'] = 'Medicina registrada hoje';
 $lang['medicines_registered_today'] = 'Medicamentos registrados hoje';
 
@@ -573,7 +578,7 @@ $lang['documents'] = 'Documentos';
 
 $lang['case'] = 'Caso';
 
-$lang['history'] = 'História';
+$lang['history'] = 'Queixa Principal:'; //Histórico do Paciente
 
 $lang['document'] = 'Documento';
 
@@ -630,10 +635,10 @@ $lang['total_doctors_commission'] = 'Total Comissão de Médicos';
 
 
 
-$lang['treatment_history'] = 'História do Tratamento';
+$lang['treatment_history'] = 'Histórico Geral';
 
 
-$lang['number_of_patient_treated'] = 'Número de pacientes tratados';
+$lang['number_of_patient_treated'] = 'Número de pacientes atendidos';
 
 
 
@@ -643,10 +648,10 @@ $lang['number_of_patient_treated'] = 'Número de pacientes tratados';
 
 $lang['all_appointments'] = 'Todas as nomeações';
 $lang['todays_appointments'] = 'Agendamentos de hoje';
-$lang['all'] = 'Todos';
+$lang['all'] = 'Todos agendamentos';
 $lang['add'] = 'Adicionar';
-$lang['todays'] = 'Hoje em dia';
-$lang['upcoming'] = 'próximos';
+$lang['todays'] = 'Agend. de hoje';
+$lang['upcoming'] = 'Próx. agendamentos';
 $lang['write_message'] = 'Escrever mensagem';
 $lang['sent_messages'] = 'Mensagens Enviadas';
 $lang['send_sms_to_patient'] = 'Enviar SMS para Paciente';

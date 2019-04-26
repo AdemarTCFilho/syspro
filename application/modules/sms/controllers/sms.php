@@ -43,6 +43,18 @@ class Sms extends MX_Controller {
         $this->load->view('home/footer'); // just the footer file
     }
 
+    public function chat() {
+        $data = array();
+        $id = $this->ion_auth->get_user_id();
+        $data['groups'] = $this->donor_model->getBloodBank();
+        $data['patients'] = $this->patient_model->getPatient();
+        $data['sms'] = $this->sms_model->getSmsSettingsById($id);
+        $data['teams'] = $this->doctor_model->getDoctor();
+        $this->load->view('home/dashboard'); // just the header file
+        $this->load->view('chat', $data);
+        $this->load->view('home/footer'); // just the footer file
+    }
+
     public function settings() {
         $data = array();
         $id = $this->ion_auth->get_user_id();

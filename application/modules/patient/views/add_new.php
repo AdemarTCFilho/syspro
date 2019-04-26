@@ -103,42 +103,42 @@
                                         <div class="form-group">
                                             <label for="exampleInputEmail1"><?php echo lang('sex'); ?></label>
                                             <select class="form-control m-bot15" name="sex" value=''>
-                                                <option value="Male" <?php
+                                                <option value="Masculino" <?php
                                                 if (!empty($setval)) {
-                                                    if (set_value('sex') == 'Male') {
+                                                    if (set_value('sex') == 'Masculino') {
                                                         echo 'selected';
                                                     }
                                                 }
                                                 if (!empty($patient->sex)) {
-                                                    if ($patient->sex == 'Male') {
+                                                    if ($patient->sex == 'Masculino') {
                                                         echo 'selected';
                                                     }
                                                 }
-                                                ?> > Male </option>
-                                                <option value="Female" <?php
+                                                ?> > Masculino </option>
+                                                <option value="Feminino" <?php
                                                 if (!empty($setval)) {
-                                                    if (set_value('sex') == 'Female') {
+                                                    if (set_value('sex') == 'Feminino') {
                                                         echo 'selected';
                                                     }
                                                 }
                                                 if (!empty($patient->sex)) {
-                                                    if ($patient->sex == 'Female') {
+                                                    if ($patient->sex == 'Feminino') {
                                                         echo 'selected';
                                                     }
                                                 }
-                                                ?> > Female </option>
-                                                <option value="Others" <?php
+                                                ?> > Feminino </option>
+                                                <option value="Outros" <?php
                                                 if (!empty($setval)) {
-                                                    if (set_value('sex') == 'Others') {
+                                                    if (set_value('sex') == 'Outros') {
                                                         echo 'selected';
                                                     }
                                                 }
                                                 if (!empty($patient->sex)) {
-                                                    if ($patient->sex == 'Others') {
+                                                    if ($patient->sex == 'Outros') {
                                                         echo 'selected';
                                                     }
                                                 }
-                                                ?> > Others </option>
+                                                ?> > Outros </option>
                                             </select>
                                         </div>
 

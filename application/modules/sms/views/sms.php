@@ -43,7 +43,7 @@
                                         }
                                         ?></td>
                                     <td>
-                                        <a class="btn btn-info btn-xs btn_width delete_button" href="sms/delete?id=<?php echo $sent->id; ?>" <?php echo lang('delete'); ?> onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-trash-o"> </i></a>
+                                        <a class="btn btn-info btn-xs btn_width delete_button" href="sms/delete?id=<?php echo $sent->id; ?>" <?php echo lang('delete'); ?> onclick="return confirm('Tem certeza de que deseja excluir este item?');"><i class="fa fa-trash-o"> </i></a>
                                     </td>
                                 </tr>
                             <?php } ?>

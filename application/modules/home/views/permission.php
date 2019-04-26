@@ -8,7 +8,7 @@
         <meta name="author" content="Rizvi">
         <meta name="keyword" content="Php, Hospital, Clinic, Management, Software, Php, CodeIgniter, Hms, Accounting">
         <link rel="shortcut icon" href="uploads/favicon.png">
-        <title>Access Is Denied</title>
+        <title>Acesso negado</title>
         <!-- Bootstrap core CSS -->
         <link href="common/css/bootstrap.min.css" rel="stylesheet">
         <link href="common/css/bootstrap-reset.css" rel="stylesheet">
@@ -29,8 +29,8 @@
         <div class="container">
             <section class="error-wrapper">
                 <i class="icon-404"></i>
-                <h1>Access Is Denied</h1>
-                <h2>You dont Have enough permission to see this page</h2>
+                <h1>Acesso negado</h1>
+                <h2>Você não tem permissão suficiente para ver esta página</h2>
             </section>
         </div>
     </body>

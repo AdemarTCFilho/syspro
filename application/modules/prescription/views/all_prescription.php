@@ -49,7 +49,7 @@
                                 <td>
                                     <a class="btn btn-info btn-xs detailsbutton" title="<?php echo lang('view'); ?>" href="prescription/viewPrescription?id=<?php echo $prescription->id; ?>"><i class="fa fa-eye"> <?php echo lang('view'); ?></i></a>   
                                     <a class="btn btn-info btn-xs editPrescription" title="<?php echo lang('edit'); ?>" data-toggle="modal" data-id="<?php echo $prescription->id; ?>"><i class="fa fa-edit"></i> <?php echo lang('edit'); ?></a>
-                                    <a class="btn btn-info btn-xs delete_button" href="prescription/delete?id=<?php echo $prescription->id; ?>&admin=1" title="<?php echo lang('delete'); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-trash-o"> </i> <?php echo lang('delete'); ?></a>
+                                    <a class="btn btn-info btn-xs delete_button" href="prescription/delete?id=<?php echo $prescription->id; ?>&admin=1" title="<?php echo lang('delete'); ?>" onclick="return confirm('Tem certeza de que deseja excluir este item?');"><i class="fa fa-trash-o"> </i> <?php echo lang('delete'); ?></a>
                                 </td>
                             </tr>
                         <?php } ?>
@@ -91,7 +91,7 @@ if ($this->ion_auth->in_group('Doctor')) {
                      <div class="form-group col-md-4">
                         <label for="exampleInputEmail1"><?php echo lang('doctor'); ?></label>
                         <select class="form-control m-bot15 js-example-basic-single" name="doctor" value=''> 
-                            <option value="">Select .....</option>
+                            <option value="">Selecionar .....</option>
                             <?php foreach ($doctors as $doctor) { ?>
                                 <option value="<?php echo $doctor->id; ?>"><?php echo $doctor->name; ?> </option>
                                     <?php } ?>
@@ -100,7 +100,7 @@ if ($this->ion_auth->in_group('Doctor')) {
                     <div class="form-group col-md-4">
                         <label for="exampleInputEmail1"><?php echo lang('patient'); ?></label>
                         <select class="form-control m-bot15 js-example-basic-single" name="patient" value=''> 
-                            <option value="">Select .....</option>
+                            <option value="">Selecionar .....</option>
                             <?php foreach ($patients as $patientss) { ?>
                                 <option value="<?php echo $patientss->id; ?>"><?php echo $patientss->name; ?> </option>
                                     <?php } ?>
@@ -158,7 +158,7 @@ if ($this->ion_auth->in_group('Doctor')) {
                     <div class="form-group col-md-4">
                         <label for="exampleInputEmail1"><?php echo lang('doctor'); ?></label>
                         <select class="form-control m-bot15 js-example-basic-single doctor" name="doctor" value=''> 
-                            <option value="">Select .....</option>
+                            <option value="">Selecionar .....</option>
                             <?php foreach ($doctors as $doctor) { ?>
                                 <option value="<?php echo $doctor->id; ?>" <?php
                                 if (!empty($prescription->doctor)) {
@@ -173,7 +173,7 @@ if ($this->ion_auth->in_group('Doctor')) {
                     <div class="form-group col-md-4">
                         <label for="exampleInputEmail1"><?php echo lang('patient'); ?></label>
                         <select class="form-control m-bot15 js-example-basic-single patient" name="patient" value=''> 
-                            <option value="">Select .....</option>
+                            <option value="">Selecionar .....</option>
                             <?php foreach ($patients as $patientss) { ?>
                                 <option value="<?php echo $patientss->id; ?>" <?php
                                 if (!empty($prescription->patient)) {

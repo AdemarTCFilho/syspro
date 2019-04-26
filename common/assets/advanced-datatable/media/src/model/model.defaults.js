@@ -1401,7 +1401,7 @@ DataTable.defaults = {
 			 *      } );
 			 *    } );
 			 */
-			"sNext": "Next",
+			"sNext": "Próximo",
 		
 		
 			/**
@@ -1422,7 +1422,7 @@ DataTable.defaults = {
 			 *      } );
 			 *    } );
 			 */
-			"sPrevious": "Previous"
+			"sPrevious": "Anterior"
 		},
 	
 		/**
@@ -1464,7 +1464,7 @@ DataTable.defaults = {
 		 *      } );
 		 *    } );
 		 */
-		"sInfo": "Showing _START_ to _END_ of _TOTAL_ entries",
+		"sInfo": "Mostrando _START_ to _END_ of _TOTAL_ entradas",
 	
 	
 		/**
@@ -1483,7 +1483,7 @@ DataTable.defaults = {
 		 *      } );
 		 *    } );
 		 */
-		"sInfoEmpty": "Showing 0 to 0 of 0 entries",
+		"sInfoEmpty": "Mostrando 0 to 0 of 0 entradas",
 	
 	
 		/**
@@ -1701,7 +1701,7 @@ DataTable.defaults = {
 		 *      } );
 		 *    } );
 		 */
-		"sZeroRecords": "No matching records found"
+		"sZeroRecords": "Nenhum registro correspondente encontrado"
 	},
 
 

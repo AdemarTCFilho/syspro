@@ -8,7 +8,7 @@
         <meta name="author" content="Rizvi">
         <meta name="keyword" content="Php, Hospital, Clinic, Management, Software, Php, CodeIgniter, Hms, Accounting">
         <link rel="shortcut icon" href="uploads/favicon.png">
-        <title><?php echo $this->db->get('settings')->row()->system_vendor; ?> </title>
+        <title id="noprint"><?php echo $this->db->get('settings')->row()->system_vendor; ?> </title>
         <!-- Bootstrap core CSS -->
         <link href="common/css/bootstrap.min.css" rel="stylesheet">
         <link href="common/css/bootstrap-reset.css" rel="stylesheet">
@@ -26,6 +26,7 @@
         <link href="common/css/invoice-print.css" rel="stylesheet" media="print">
         <link href="common/assets/fullcalendar/fullcalendar.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="common/assets/select2/css/select2.min.css"/>
+        <link rel="stylesheet" type="text/css" href="common/assets/sweetalert2/dist/sweetalert2.min.css"/>
 
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
@@ -36,7 +37,7 @@
 
     </head>
 
-    <body>
+    <body onload="ajax();">
         <section id="container" class="">
             <!--header start-->
             <header class="header white-bg">
@@ -65,8 +66,8 @@
                     <!--  notification start -->
                     <ul class="nav top-menu">
                         <!-- Bed Notification start -->
-                        <?php if ($this->ion_auth->in_group(array('admin', 'Doctor', 'Nurse'))) { ?> 
-                            <li class="dropdown">
+                        <?php if ($this->ion_auth->in_group(array('admin', 'Nurse'))) { ?> 
+                            <!--<li class="dropdown">
                                 <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                     <i class="fa fa-hdd-o"></i>
                                     <span class="badge bg-success">  
@@ -132,11 +133,25 @@
                                                 ?></p></a>
                                     </li>
                                 </ul>
-                            </li>
+                            </li>-->
                         <?php } ?>
                         <!-- Bed notification end -->
                         <!-- Payment notification start-->
-                        <?php if ($this->ion_auth->in_group(array('admin', 'Accountant'))) { ?> 
+                        <?php if ($this->ion_auth->in_group(array('admin', 'Receptionist', 'Laboratorist'))) { ?>
+                            <li id="header_inbox_bar" class="dropdown" style="float: right;" title="Painel de chamada">
+                                <a data-toggle="dropdown" class="dropdown-toggle" onclick="abrirPainel()" style="cursor: pointer;">
+                                    <i class="fa fa-television" style="font-size:32px;"></i> Painel de chamada           
+                                </a>                               
+                            </li>
+
+                            <script type="text/javascript">
+                                function abrirPainel() {
+                                    window.open('http://localhost/painel/painel_exibe.php', '_blank');
+                                }
+                            </script>
+                        <?php } ?>
+
+                        <?php if ($this->ion_auth->in_group(array('admin', 'Accountant', 'Laboratorist'))) { ?> 
                             <li id="header_inbox_bar" class="dropdown">
                                 <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                     <i class="fa fa-money"></i>
@@ -179,7 +194,7 @@
                         <?php } ?>
                         <!-- payment notification end -->  
                         <!-- patient notification start-->
-                        <?php if ($this->ion_auth->in_group(array('admin', 'Accountant', 'Doctor', 'Nurse', 'Laboratorist'))) { ?> 
+                        <?php if ($this->ion_auth->in_group(array('admin', 'Accountant', 'Nurse', 'Laboratorist'))) { ?> 
                             <li id="header_notification_bar" class="dropdown">
                                 <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                     <i class="fa fa-user"></i>
@@ -220,8 +235,8 @@
                         <?php } ?>
                         <!-- patient notification end -->  
                         <!-- donor notification start-->
-                        <?php if ($this->ion_auth->in_group(array('admin', 'Doctor', 'Nurse', 'Laboratorist', 'Patient'))) { ?> 
-                            <li id="header_notification_bar" class="dropdown">
+                        <?php if ($this->ion_auth->in_group(array('admin', 'Nurse', 'Laboratorist', 'Patient'))) { ?> 
+                            <!--<li id="header_notification_bar" class="dropdown">
                                 <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                     <i class="fa fa-user"></i>
                                     <span class="badge bg-success">       
@@ -257,12 +272,12 @@
                                         <a href="donor"><p class="green"><?php echo lang('see_all_donors'); ?></p></a>
                                     </li>
                                 </ul>
-                            </li>
+                            </li>-->
                         <?php } ?> 
                         <!-- donor notification end -->  
                         <!-- medicine notification start-->
-                        <?php if ($this->ion_auth->in_group(array('admin', 'Pharmacist', 'Doctor'))) { ?> 
-                            <li id="header_notification_bar" class="dropdown">
+                        <?php if ($this->ion_auth->in_group(array('admin', 'Pharmacist'))) { ?> 
+                            <!--<li id="header_notification_bar" class="dropdown">
                                 <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                     <i class="fa fa-medkit"></i>
                                     <span class="badge bg-success">                          
@@ -298,12 +313,12 @@
                                         <a href="medicine"><p class="green"><?php echo lang('see_all_medicines'); ?></p></a>
                                     </li>
                                 </ul>
-                            </li>
+                            </li>-->
                         <?php } ?> 
                         <!-- medicine notification end -->  
                         <!-- report notification start-->
-                        <?php if ($this->ion_auth->in_group(array('admin', 'Doctor', 'Laboratorist', 'Nurse'))) { ?> 
-                            <li id="header_notification_bar" class="dropdown">
+                        <?php if ($this->ion_auth->in_group(array('admin', 'Laboratorist', 'Nurse'))) { ?> 
+                            <!--<li id="header_notification_bar" class="dropdown">
                                 <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                     <i class="fa fa-hospital-o"></i>
                                     <span class="badge bg-success">                         
@@ -339,9 +354,9 @@
                                         <a href="report"><p class="green"><?php echo lang('see_all_reports'); ?></p></a>
                                     </li>
                                 </ul>
-                            </li>
+                            </li>-->
                         <?php } ?>
-                        <?php if ($this->ion_auth->in_group('Patient')) { ?> 
+                        <?php if ($this->ion_auth->in_group('Patient', 'Laboratorist')) { ?> 
                             <li id="header_notification_bar" class="dropdown">
                                 <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                     <i class="fa fa-hospital-o"></i>
@@ -382,17 +397,12 @@
                             </li>
                         <?php } ?>
                         <!-- report notification end -->
-                        <?php if ($this->ion_auth->in_group(array('admin', 'Doctor', 'Nurse'))) { ?>
-                            &nbsp;&nbsp;
-                            <li id="header_notification_bar" class="dropdown">
-                                <a  href="prescription/all"><i class="fa fa-desktop"></i> <strong>Chamar paciente</strong></a>
-                            </li>
-                        <?php } ?>    
+
                     </ul>
                 </div>
                 <div class="top-nav ">
                     <?php
-                    $message = $this->session->flashdata('feedback');
+                    //$message = $this->session->flashdata('feedback');
                     if (!empty($message)) {
                         ?>
                         <div class="flashmessage pull-left"><i class="fa fa-check"></i> <?php echo $message; ?></div>
@@ -411,11 +421,20 @@
                                     <li><a href=""><i class="fa fa-dashboard"></i> <?php echo lang('dashboard'); ?></a></li>
                                 <?php } ?>
                                 <li><a href="profile"><i class=" fa fa-suitcase"></i><?php echo lang('profile'); ?></a></li>
-                                <?php if ($this->ion_auth->in_group('admin')) { ?> 
+                                <?php if ($this->ion_auth->in_group('admin', 'Laboratorist')) { ?> 
                                     <li><a href="settings"><i class="fa fa-cog"></i> <?php echo lang('settings'); ?></a></li>
                                 <?php } ?>
 
-                                <li><a><i class="fa fa-user"></i> <?php echo $this->ion_auth->get_users_groups()->row()->name ?></a></li>
+                                <li>
+                                    <a><i class="fa fa-user"></i>
+                                        <?php if ($this->ion_auth->get_users_groups()->row()->name == "Receptionist") { ?>
+                                            Recepcion.
+                                        <?php } ?>
+                                        <?php if ($this->ion_auth->get_users_groups()->row()->name == "Doctor") { ?>
+                                            Médico
+                                        <?php } ?>
+                                    </a>
+                                </li>
                                 <li><a href="auth/logout"><i class="fa fa-key"></i> <?php echo lang('log_out'); ?></a></li>
                             </ul>
                         </li>
@@ -437,7 +456,7 @@
                                 <span><?php echo lang('dashboard'); ?></span>
                             </a>
                         </li>
-                        <?php if ($this->ion_auth->in_group('admin')) { ?>
+                        <?php if ($this->ion_auth->in_group('admin', 'Laboratorist')) { ?>
                             <li>
                                 <a href="department">
                                     <i class="fa fa-sitemap"></i>
@@ -445,7 +464,12 @@
                                 </a>
                             </li>
                         <?php } ?>
-                        <?php if ($this->ion_auth->in_group(array('admin'))) { ?>
+
+                        <?php if ($this->ion_auth->in_group(array('Receptionist'))) { ?>
+                            <li><a href="doctor"><i class="fa fa-user"></i><?php echo lang('list_of_doctors'); ?></a></li>
+                        <?php } ?>
+
+                        <?php if ($this->ion_auth->in_group(array('admin', 'Laboratorist'))) { ?>
                             <li> <li class="sub-menu">
                                 <a href="javascript:;" >
 
@@ -458,23 +482,30 @@
                                 </ul>
                             </li>
                         <?php } ?>
-                        <?php if ($this->ion_auth->in_group(array('admin', 'Accountant', 'Nurse', 'Doctor', 'Laboratorist', 'Receptionist'))) { ?>
+                        
+                        <?php if ($this->ion_auth->in_group(array('admin', 'Accountant', 'Nurse', 'Laboratorist', 'Receptionist'))) { ?>
+
+                            <li><a href="patient"><i class="fa fa-user"></i><?php echo lang('patient'); ?></a></li>
 
                             <li> <li class="sub-menu">
-                                <a href="javascript:;" >
+                                <!--<a href="javascript:;" >
                                     <i class="fa fa-users"></i> 
                                     <span><?php echo lang('patient'); ?></span>
-                                </a>
+                                </a>-->
                                 <ul class="sub"> 
                                     <li><a href="patient"><i class="fa fa-user"></i><?php echo lang('patient_list'); ?></a></li>
-                                    <li><a href="patient/patientPayments"><i class="fa fa-dollar"></i><?php echo lang('payments'); ?></a></li>
-                                    <li><a href="patient/caseList"><i class="fa fa-book"></i><?php echo lang('case_history'); ?></a></li>
-                                    <li><a href="patient/documents"><i class="fa fa-file-text"></i><?php echo lang('documents'); ?></a></li>
+
+                                    <?php if ($this->ion_auth->in_group(array('admin', 'Accountant', 'Nurse', 'Laboratorist'))) { ?>
+
+                                        <li><a href="patient/patientPayments"><i class="fa fa-dollar"></i><?php echo lang('payments'); ?></a></li>
+                                        <li><a href="patient/caseList"><i class="fa fa-book"></i><?php echo lang('case_history'); ?></a></li>
+                                        <li><a href="patient/documents"><i class="fa fa-file-text"></i><?php echo lang('documents'); ?></a></li>
+                                    <?php } ?>
                                 </ul>
                             </li>
                         <?php } ?>
-                        <?php if ($this->ion_auth->in_group(array('admin', 'Doctor', 'Nurse', 'Receptionist'))) { ?>
-                            <li> <li class="sub-menu">
+                        <?php if ($this->ion_auth->in_group(array('admin', 'Nurse', 'Laboratorist'))) { ?>
+                            <!--<li> <li class="sub-menu">
                                 <a href="javascript:;" >
                                     <i class="fa fa-calendar"></i> 
                                     <span><?php echo lang('appointment'); ?></span>
@@ -485,24 +516,30 @@
                                     <li><a href="appointment/todays"><i class="fa fa-list-alt"></i><?php echo lang('todays'); ?></a></li>
                                     <li><a href="appointment/upcoming"><i class="fa fa-list-alt"></i><?php echo lang('upcoming'); ?></a></li>
                                 </ul>
-                            </li>
+                            </li>-->
+                            <li>
+                            <a href="appointment" >
+                                <i class="fa fa-calendar"></i>
+                                <span> <?php echo lang('appointment'); ?> </span>
+                            </a>
+                        </li>
                         <?php } ?>
-                        <?php if ($this->ion_auth->in_group('admin')) { ?>
+                        <?php if ($this->ion_auth->in_group('admin', 'Laboratorist')) { ?>
                             <li> <li class="sub-menu">
                                 <a href="javascript:;" >
                                     <i class="fa fa-users"></i>
                                     <span><?php echo lang('human_resources'); ?></span>
                                 </a>
                                 <ul class="sub">
-                                    <li><a href="nurse"><i class="fa fa-user"></i><?php echo lang('nurse'); ?></a></li>
+                                    <!--<li><a href="nurse"><i class="fa fa-user"></i><?php echo lang('nurse'); ?></a></li>
                                     <li><a href="pharmacist"><i class="fa fa-user"></i><?php echo lang('pharmacist'); ?></a></li>
                                     <li><a href="laboratorist"><i class="fa fa-user"></i><?php echo lang('laboratorist'); ?></a></li>
-                                    <li><a href="accountant"><i class="fa fa-user"></i><?php echo lang('accountant'); ?></a></li>
+                                    <li><a href="accountant"><i class="fa fa-user"></i><?php echo lang('accountant'); ?></a></li>-->
                                     <li><a href="receptionist"><i class="fa fa-user"></i><?php echo lang('receptionist'); ?></a></li>
                                 </ul>
                             </li>
                         <?php } ?>
-                        <?php if ($this->ion_auth->in_group('admin')) { ?>
+                        <?php if ($this->ion_auth->in_group('admin', 'Laboratorist')) { ?>
                             <li class="sub-menu">
                                 <a href="javascript:;" >
                                     <i class="fa fa-dollar"></i>
@@ -519,7 +556,7 @@
                             </li> 
                         <?php } ?>
 
-                        <?php if ($this->ion_auth->in_group('Receptionist')) { ?>
+                        <?php if ($this->ion_auth->in_group('Receptionist', 'Laboratorist')) { ?>
                             <li>
                                 <a href="appointment/calendar" >
                                     <i class="fa fa-calendar"></i>
@@ -540,7 +577,7 @@
 
 
 
-                        <?php if ($this->ion_auth->in_group(array('admin'))) { ?>
+                        <?php if ($this->ion_auth->in_group(array('Laboratorist'))) { ?>
                             <li>
                                 <a href="prescription/all" >
                                     <i class="fa fa-list-alt"></i>
@@ -550,7 +587,7 @@
                         <?php } ?>
 
                         <?php
-                        if ($this->ion_auth->in_group(array('Accountant', 'Receptionist'))) {
+                        if ($this->ion_auth->in_group(array('Accountant', 'Laboratorist'))) {
                             ?>
                             <li>
                                 <a href="finance/UserActivityReport">
@@ -562,14 +599,7 @@
                         }
                         ?>
 
-
-
-
-
-
-
-
-                        <?php if ($this->ion_auth->in_group(array('Doctor'))) { ?>
+                        <?php if ($this->ion_auth->in_group(array('Laboratorist'))) { ?>
                             <li>
                                 <a href="prescription">
                                     <i class="fa fa-dashboard"></i>
@@ -578,16 +608,8 @@
                             </li>
                         <?php } ?>
 
-
-
-
-
-
-
-
-
-                        <?php if ($this->ion_auth->in_group(array('admin', 'Doctor'))) { ?>
-                            <li class="sub-menu">
+                        <?php if ($this->ion_auth->in_group(array('admin'))) { ?>
+                            <!--<li class="sub-menu">
                                 <a href="javascript:;" >
                                     <i class="fa  fa-eyedropper"></i>
                                     <span><?php echo lang('medicine'); ?></span>
@@ -600,18 +622,11 @@
                                     <li><a  href="medicine/medicineStockAlert"><i class="fa fa-plus-circle"></i><?php echo lang('medicine_stock_alert'); ?></a></li>
 
                                 </ul>
-                            </li>
+                            </li>-->
                         <?php } ?>
 
-
-
-
-
-
-
-
                         <?php if ($this->ion_auth->in_group(array('admin', 'Pharmacist'))) { ?>
-                            <li class="sub-menu">
+                            <!--<li class="sub-menu">
                                 <a href="javascript:;" >
                                     <i class="fa fa-dollar"></i>
                                     <span><?php echo lang('pharmacy'); ?></span>
@@ -624,17 +639,10 @@
                                     <li><a  href="finance/pharmacy/expenseCategory"><i class="fa fa-edit"></i><?php echo lang('expense_categories'); ?> </a></li>
                                     <li><a  href="finance/pharmacy/financialReport"><i class="fa fa-book"></i><?php echo lang('pharmacy'); ?> <?php echo lang('report'); ?> </a></li>
                                 </ul>
-                            </li> 
+                            </li>-->
                         <?php } ?>
 
-
-
-
-
-
-
-
-                        <?php if ($this->ion_auth->in_group(array('admin', 'Laboratorist', 'Doctor'))) { ?>
+                        <?php if ($this->ion_auth->in_group(array('Laboratorist'))) { ?>
                             <li class="sub-menu">
                                 <a href="javascript:;" >
                                     <i class="fa  fa-user"></i>
@@ -647,7 +655,7 @@
                                 </ul>
                             </li>
                         <?php } ?>
-                        <?php if ($this->ion_auth->in_group(array('admin', 'Doctor'))) { ?>
+                        <?php if ($this->ion_auth->in_group(array(''))) { ?>
                             <li class="sub-menu">
                                 <a href="javascript:;" >
                                     <i class="fa fa-bed"></i>
@@ -662,18 +670,18 @@
                                 </ul>
                             </li>
                         <?php } ?>
-                        <?php if ($this->ion_auth->in_group(array('admin', 'Nurse', 'Laboratorist', 'Doctor'))) { ?>
+                        <?php if ($this->ion_auth->in_group(array('Nurse', 'Laboratorist'))) { ?>
                             <li class="sub-menu">
                                 <a href="javascript:;" >
                                     <i class="fa  fa-hospital-o"></i>
                                     <span><?php echo lang('report'); ?></span>
                                 </a>
                                 <ul class="sub">
-                                    <?php if ($this->ion_auth->in_group(array('admin'))) { ?>
+                                    <?php if ($this->ion_auth->in_group(array('admin', 'Laboratorist'))) { ?>
                                         <li><a  href="finance/financialReport"><i class="fa fa-book"></i><?php echo lang('financial_report'); ?></a></li>
                                         <li> <a href="finance/AllUserActivityReport">  <i class="fa fa-dashboard"></i>   <span><?php echo lang('user_activity_report'); ?></span> </a></li>
                                     <?php } ?>
-                                    <li><a href="patient/diagnosticReport"> <i class="fa fa-book"></i> <span><?php echo lang('diagnostic_report'); ?></span></a> </li>
+                                   <li><a href="patient/diagnosticReport"> <i class="fa fa-book"></i> <span><?php echo lang('diagnostic_report'); ?></span></a> </li>
                                     <li><a  href="report/birth"><i class="fa fa-smile-o"></i><?php echo lang('birth_report'); ?></a></li>
                                     <li><a  href="report/operation"><i class="fa fa-wheelchair"></i><?php echo lang('operation_report'); ?></a></li>
                                     <li><a  href="report/expire"><i class="fa fa-minus-square-o"></i><?php echo lang('expire_report'); ?></a></li>
@@ -684,7 +692,7 @@
                             </li>
                         <?php } ?>
                        <!--
-                         <?php if ($this->ion_auth->in_group(array('admin'))) { ?>
+                         <?php if ($this->ion_auth->in_group(array('admin', 'Laboratorist', 'Receptionist', 'Doctor'))) { ?>
                             <li class="sub-menu">
                                 <a href="javascript:;" >
                                     <i class="fa fa-envelope-o"></i>
@@ -700,7 +708,7 @@
                             </li> 
                         <?php } ?>
                         -->
-                        <?php if ($this->ion_auth->in_group(array('admin'))) { ?>
+                        <?php if ($this->ion_auth->in_group(array('admin', 'Laboratorist'))) { ?>
 
                             <li> <li class="sub-menu">
                                 <a href="javascript:;" >
@@ -709,7 +717,7 @@
                                 </a>
                                 <ul class="sub">
                                     <li><a href="settings"><i class="fa fa-gear"></i><?php echo lang('system_settings'); ?></a></li>
-                                    <li><a href="settings/language"><i class="fa fa-wrench"></i><?php echo lang('language'); ?></a></li>
+                                    <!--<li><a href="settings/language"><i class="fa fa-wrench"></i><?php echo lang('language'); ?></a></li>-->
                                     <li><a href="settings/backups"><i class="fa fa-smile-o"></i><?php echo lang('backup_database'); ?></a></li>
                                 </ul>
                             </li>
@@ -802,12 +810,12 @@
                             </li>
                         <?php } ?>
                         <?php if ($this->ion_auth->in_group('Nurse')) { ?>
-                            <li>
+                            <!--<li>
                                 <a href="bed" >
                                     <i class="fa fa-hdd-o"></i>
                                     <span> <?php echo lang('bed_list'); ?> </span>
                                 </a>
-                            </li>
+                            </li>-->
                             <li>
                                 <a href="bed/bedCategory" >
                                     <i class="fa fa-edit"></i>
@@ -876,9 +884,33 @@
                                 <span> <?php echo lang('profile'); ?> </span>
                             </a>
                         </li>
+                        
+                        <?php if ($this->ion_auth->in_group(array('Doctor'))) { ?>
+                            <li>
+                                <!-- mibew button --><a id="mibew-agent-button" href="/mibew/chat?locale=en" target="_blank" onclick="Mibew.Objects.ChatPopups['5c9cb419144b7c8'].open();return false;"><img src="/mibew/b?i=mibew&amp;lang=en" border="0" alt="" /></a><script type="text/javascript" src="/mibew/js/compiled/chat_popup.js"></script><script type="text/javascript">Mibew.ChatPopup.init({"id":"5c9cb419144b7c8","url":"\/mibew\/chat?locale=en","preferIFrame":true,"modSecurity":false,"forceSecure":false,"style":"","width":640,"height":480,"resizable":true,"styleLoader":"\/mibew\/chat\/style\/popup"});</script><!-- / mibew button -->
+                            </li>
+                        <?php } ?>
 
+                        <?php if ($this->ion_auth->in_group(array('admin', 'Receptionist'))) { ?>
+                            <li>
+                                <a href="javascript:chat();" >
+                                    <i class="fa fa-weixin"></i>
+                                    <span> Chat externo</span>
+                                </a>
+                            </li>
+                            <li>
+                            <a href="sms/chat" >
+                                <i class="fa fa-weixin"></i>
+                                <span> chat </span>
+                            </a>
+                        </li>
+                        <?php } ?>
                         <!--multi level menu start-->
-
+                        <script type="text/javascript">
+                            function chat() {
+                                window.open('http://localhost/mibew/operator/login', '_blank');
+                            }
+                        </script>
                         <!--multi level menu end-->
 
                     </ul>

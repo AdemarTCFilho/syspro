@@ -3,8 +3,17 @@
 <section id="main-content">
     <section class="wrapper site-min-height">
         <!--state overview start-->
+        <div>
+            <p>
+                <i class="fa fa-ban" style="font-size:16px;color:red;float: right;"> CANCELADO </i>
+                <i class="fa fa-check" style="font-size:16px;color:#36d227;float: right;"> ATENDIDO |&nbsp;&nbsp;</i>
+                <i class="fa fa-thumbs-up" style="font-size:16px;color:#0288d1;float: right;"> CONFIRMADO |&nbsp;&nbsp;</i>
+                <i class="fa fa-warning" style="font-size:16px;color:#d1ae02;float: right;"> AGENDADO |&nbsp;&nbsp;</i>
+            </p>
+        </div>
+        <?php if ($this->ion_auth->in_group('admin')) { ?>
         <div class="row state-overview" style="padding: 23px 19px;">
-            <div class="col-lg-3 col-sm-6">
+            <!--<div class="col-lg-3 col-sm-6">
                 <?php if ($this->ion_auth->in_group('admin')) { ?>
                     <a href="doctor">
                     <?php } ?>
@@ -120,23 +129,24 @@
             </div>
             <div class="col-lg-3 col-sm-6">
                 <?php if ($this->ion_auth->in_group('admin')) { ?>
-                    <a href="finance/payment">
+                    <a href="department">
                     <?php } ?>
-                    <section class="panel card-cor-cinza">
-                        <div class="symbol grey">
-                            <i class="fa fa-money"></i>
+                    <section class="panel card-cor-aluz">
+                        <div class="symbol blue">
+                            <i class="fa fa-sitemap"></i>
                         </div>
                         <div class="value">
                             <h1 class="">
-                                <strong><?php echo $this->db->count_all('payment'); ?></strong>
+                                <strong><?php echo $this->db->count_all('department'); ?></strong>
                             </h1>
-                            <strong><p><?php echo lang('payment'); ?> <?php echo lang('invoice'); ?></p></strong>
+                            <strong><p><?php echo lang('departments'); ?></p></strong>
                         </div>
                     </section>
                     <?php if ($this->ion_auth->in_group('admin')) { ?>
                     </a>
                 <?php } ?>
             </div>
+            
             <div class="col-lg-3 col-sm-6">
                 <?php if ($this->ion_auth->in_group('admin')) { ?>
                     <a href="appointment">
@@ -156,6 +166,26 @@
                     </a>
                 <?php } ?>
             </div>
+            <div class="col-lg-3 col-sm-6">
+                <?php if ($this->ion_auth->in_group('admin')) { ?>
+                    <a href="finance/payment">
+                    <?php } ?>
+                    <section class="panel card-cor-cinza">
+                        <div class="symbol grey">
+                            <i class="fa fa-money"></i>
+                        </div>
+                        <div class="value">
+                            <h1 class="">
+                                <strong><?php echo $this->db->count_all('payment'); ?></strong>
+                            </h1>
+                            <strong><p><?php echo lang('payment'); ?> <?php echo lang('invoice'); ?></p></strong>
+                        </div>
+                    </section>
+                    <?php if ($this->ion_auth->in_group('admin')) { ?>
+                    </a>
+                <?php } ?>
+            </div>-->
+            <!--
             <div class="col-lg-3 col-sm-6">
                 <?php if ($this->ion_auth->in_group('admin')) { ?>
                     <a href="report/operation">
@@ -277,29 +307,11 @@
                             </div>
                         </section>         
                     </a>     
-                </div>
+                </div>-->
             <?php } ?>
-            <div class="col-lg-3 col-sm-6">
-                <?php if ($this->ion_auth->in_group('admin')) { ?>
-                    <a href="department">
-                    <?php } ?>
-                    <section class="panel card-cor-aluz">
-                        <div class="symbol blue">
-                            <i class="fa fa-sitemap"></i>
-                        </div>
-                        <div class="value">
-                            <h1 class="">
-                                <strong><?php echo $this->db->count_all('department'); ?></strong>
-                            </h1>
-                            <strong><p><?php echo lang('departments'); ?></p></strong>
-                        </div>
-                    </section>
-                    <?php if ($this->ion_auth->in_group('admin')) { ?>
-                    </a>
-                <?php } ?>
-            </div>
+            
         </div>
-
+<?php } ?>
         <aside class="calendar_ui">
             <section class="">
                 <div class="">

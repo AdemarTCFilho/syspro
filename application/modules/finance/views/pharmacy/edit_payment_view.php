@@ -416,33 +416,33 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title"><i class="fa fa-plus-circle"></i> Patient Registration</h4>
+                <h4 class="modal-title"><i class="fa fa-plus-circle"></i> Registro de paciente</h4>
             </div>
             <div class="modal-body">
                 <form role="form" action="patient/addNew?redirect=payment" method="post" enctype="multipart/form-data">
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Name</label>
+                        <label for="exampleInputEmail1">Nome</label>
                         <input type="text" class="form-control" name="name" id="exampleInputEmail1" value='' placeholder="">
                     </div>
 
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Address</label>
+                        <label for="exampleInputEmail1">Endereço</label>
                         <input type="text" class="form-control" name="address" id="exampleInputEmail1" value='' placeholder="">
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Phone</label>
+                        <label for="exampleInputEmail1">Telefone</label>
                         <input type="text" class="form-control" name="phone" id="exampleInputEmail1" value='' placeholder="">
                     </div>
 
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Image</label>
+                        <label for="exampleInputEmail1">Imagem</label>
                         <input type="file" name="img_url">
                     </div>
 
                     <input type="hidden" name="id" value=''>
 
                     <section class="">
-                        <button type="submit" name="submit" class="btn btn-info">Submit</button>
+                        <button type="submit" name="submit" class="btn btn-info">Enviar</button>
                     </section>
                 </form>
 

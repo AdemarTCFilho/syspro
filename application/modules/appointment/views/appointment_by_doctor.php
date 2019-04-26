@@ -6,9 +6,10 @@
         <!-- page start-->
         <section class="panel">
             <header class="panel-heading">
-                <i class="fa fa-user"></i>  <?php echo lang('appointments'); ?>
+                <a class="btn btn-primary btn-xs" href="JavaScript: window.history.back();"><i class="fa fa-mail-reply"> </i> Voltar</a> <i class="fa fa-user"></i>  <?php echo lang('appointments'); ?> | <?php echo $mmrdoctor->name; ?> | 
+                        <?php echo $mmrdoctor->profile; ?>
             </header>
-            <div class="panel-body col-md-8">
+            <div class="panel-body col-md-12">
                 <div class="adv-table editable-table ">
                     <div class="clearfix">
                         <button class="export" onclick="javascript:window.print();">Print</button>  
@@ -21,7 +22,8 @@
                                 <th> <?php echo lang('patient'); ?></th>
                                 <th> <?php echo lang('date-time'); ?></th>
                                 <th> <?php echo lang('remarks'); ?></th>
-                                <th> <?php echo lang('options'); ?></th>
+                                <th> <?php echo lang('status_appointment'); ?></th>
+                                <!--<th> <?php echo lang('options'); ?></th>-->
                             </tr>
                         </thead>
                         <tbody>
@@ -48,13 +50,30 @@
                                     <td class="center"><?php echo date('d-m-Y', $appointment->date); ?> => <?php echo $appointment->time_slot; ?></td>
                                     <td>
                                         <?php echo $appointment->remarks; ?>
-                                    </td> 
-                                    <td>
-                                        <!--
-                                        <button type="button" class="btn btn-info btn-xs btn_width editbutton" data-toggle="modal" data-id="<?php echo $appointment->id; ?>"><i class="fa fa-edit"> <?php echo lang('edit'); ?></i></button>   
-                                        -->
-                                        <a class="btn btn-info btn-xs btn_width delete_button" href="appointment/delete?id=<?php echo $appointment->id; ?>&doctor_id=<?php echo $appointment->doctor; ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-trash-o"> </i></a>
                                     </td>
+                                    <td style="width: 15%;">
+                                        <a class="historico-padding" href="patient/medicalHistory?id=<?php echo $this->db->get_where('patient', array('id' => $appointment->patient))->row()->id; ?>">
+                                            <strong><?php echo $appointment->status_appointment; ?></strong>
+                                        </a>
+                                        <?php if ($appointment->status_appointment == "AGENDADO") { ?>
+                                        <button type="button" class="editbutton2 btn btn-xs" data-toggle="modal" data-id="<?php echo $appointment->id; ?>" style="float: right;"><i class="fa fa-warning" style="font-size:18px;color:#d1ae02;float: right;"></i></button>
+                                        <?php } ?>
+                                        <?php if ($appointment->status_appointment == "CONFIRMADO") { ?>
+                                        <button type="button" class="editbutton2 btn btn-xs" data-toggle="modal" data-id="<?php echo $appointment->id; ?>" style="float: right;"><i class="fa fa-thumbs-up" style="font-size:18px;color:#0288d1;float: right;"></i></button>
+                                        <?php } ?>
+                                        <?php if ($appointment->status_appointment == "ATENDIDO") { ?>
+                                        <i class="fa fa-check" style="font-size:18px;color:#36d227;float: right;"></i>
+                                        <?php } ?>
+                                        <?php if ($appointment->status_appointment == "CANCELADO") { ?>
+                                        <i class="fa fa-ban" style="font-size:18px;color:red;float: right;"></i>
+                                        <?php } ?>
+                                    </td>
+                                    <!--<td>
+                                        
+                                        <button type="button" class="btn btn-info btn-xs btn_width editbutton" data-toggle="modal" data-id="<?php echo $appointment->id; ?>"><i class="fa fa-edit"> <?php echo lang('edit'); ?></i></button>   
+                                        
+                                        <a class="btn btn-info btn-xs btn_width delete_button" href="appointment/delete?id=<?php echo $appointment->id; ?>&doctor_id=<?php echo $appointment->doctor; ?>" onclick="return confirm('Tem certeza de que deseja excluir este item?');"><i class="fa fa-trash-o"> </i></a>
+                                    </td>-->
                                 </tr>
                                 <?php
                             }
@@ -78,7 +97,7 @@
 
             </style>
 
-            <section class="panel col-md-4 m_t">
+            <!--<section class="panel col-md-4 m_t">
                 <div class="panel-body profile">
                     <a href="#" class="task-thumb">
                         <img src="<?php if(!empty($mmrdoctor->img_url)){echo $mmrdoctor->img_url;}else{echo 'uploads/favicon.png';} ?>">
@@ -99,15 +118,15 @@
                         </tr>
                         <tr>
                             <td>
-                                <i class="fa fa-phone"></i>
+                                <i class="fa fa-list-alt"></i>
                             </td>
-                            <td><?php echo $mmrdoctor->phone; ?></td>
+                            <td>CRM - <?php echo $mmrdoctor->crm; ?></td>
 
                         </tr>
 
                     </tbody>
                 </table>
-            </section>
+            </section>-->
         </section>
         <!-- page end-->
     </section>
@@ -134,7 +153,7 @@
                         </div>
                         <div class="col-md-9"> 
                             <select class="form-control m-bot15" name="patient" value=''> 
-                                <option value="">Select .....</option>
+                                <option value="">Selecionar .....</option>
                                 <?php foreach ($patients as $patient) { ?>
                                     <option value="<?php echo $patient->id; ?>" <?php
                                     if (!empty($payment->patient)) {
@@ -153,7 +172,7 @@
                         </div>
                         <div class="col-md-9"> 
                             <select class="form-control m-bot15" name="doctor" value=''>  
-                                <option value="">Select .....</option>
+                                <option value="">Selecionar .....</option>
                                 <?php foreach ($doctors as $doctor) { ?>
                                     <option value="<?php echo $doctor->id; ?>"<?php
                                     if (!empty($payment->doctor)) {
@@ -225,7 +244,7 @@
                         </div>
                         <div class="col-md-9"> 
                             <select class="form-control m-bot15" name="patient" value=''> 
-                                <option value="">Select .....</option>
+                                <option value="">Selecionar .....</option>
                                 <?php foreach ($patients as $patient) { ?>
                                     <option value="<?php echo $patient->id; ?>" <?php
                                     if (!empty($payment->patient)) {
@@ -244,7 +263,7 @@
                         </div>
                         <div class="col-md-9"> 
                             <select class="form-control m-bot15" name="doctor" value=''>  
-                                <option value="">Select .....</option>
+                                <option value="">Selecionar .....</option>
                                 <?php foreach ($doctors as $doctor) { ?>
                                     <option value="<?php echo $doctor->id; ?>"<?php
                                     if (!empty($payment->doctor)) {

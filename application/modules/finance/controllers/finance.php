@@ -323,7 +323,7 @@ class Finance extends MX_Controller {
     }
 
     function editPayment() {
-        if ($this->ion_auth->in_group(array('admin', 'Accountant', 'Receptionist'))) {
+        if ($this->ion_auth->in_group(array('admin', 'Accountant', 'Receptionist', 'Laboratorist'))) {
             $data = array();
             $data['discount_type'] = $this->finance_model->getDiscountType();
             $data['settings'] = $this->settings_model->getSettings();
@@ -339,7 +339,7 @@ class Finance extends MX_Controller {
     }
 
     function delete() {
-        if ($this->ion_auth->in_group(array('admin', 'Accountant', 'Receptionist'))) {
+        if ($this->ion_auth->in_group(array('admin', 'Accountant', 'Receptionist', 'Laboratorist'))) {
             $id = $this->input->get('id');
             $this->finance_model->deletePayment($id);
             $this->finance_model->deleteDepositByInvoiceId($id);
@@ -540,7 +540,7 @@ class Finance extends MX_Controller {
     }
 
     function editOtPayment() {
-        if ($this->ion_auth->in_group(array('admin', 'Accountant'))) {
+        if ($this->ion_auth->in_group(array('admin', 'Accountant', 'Laboratorist'))) {
             $data = array();
             $data['discount_type'] = $this->finance_model->getDiscountType();
             $data['settings'] = $this->settings_model->getSettings();
@@ -577,7 +577,7 @@ class Finance extends MX_Controller {
     }
 
     function otPaymentDelete() {
-        if ($this->ion_auth->in_group(array('admin', 'Accountant'))) {
+        if ($this->ion_auth->in_group(array('admin', 'Accountant', 'Laboratorist'))) {
             $id = $this->input->get('id');
             $this->finance_model->deleteOtPayment($id);
             $this->session->set_flashdata('feedback', 'Excluído');
@@ -1126,11 +1126,11 @@ class Finance extends MX_Controller {
         if (!$this->ion_auth->logged_in()) {
             redirect('auth/login', 'refresh');
         }
-        if ($this->ion_auth->in_group(array('Accountant'))) {
+        if ($this->ion_auth->in_group(array('Accountant', 'Laboratorist'))) {
             $user = $this->ion_auth->get_user_id();
             $data['user'] = $this->accountant_model->getAccountantByIonUserId($user);
         }
-        if ($this->ion_auth->in_group(array('Receptionist'))) {
+        if ($this->ion_auth->in_group(array('Receptionist', 'Laboratorist'))) {
             $user = $this->ion_auth->get_user_id();
             $data['user'] = $this->receptionist_model->getReceptionistByIonUserId($user);
         }

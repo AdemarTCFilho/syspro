@@ -8,9 +8,9 @@
             <header class="panel-heading">
                 <?php
                 if (!empty($appointment->id))
-                    echo '<i class="fa fa-edit"></i> Edit Appointment';
+                    echo '<i class="fa fa-edit"></i> Editar agendamento';
                 else
-                    echo '<i class="fa fa-plus-circle"></i> Add New Appointment';
+                    echo '<i class="fa fa-plus-circle"></i> Adicionar novo agendamento';
                 ?>
             </header>
 
@@ -44,8 +44,8 @@
                                             </div>
                                             <div class="col-md-9"> 
                                                 <select class="form-control m-bot15 js-example-basic-single pos_select" id="pos_select" name="patient" value=''> 
-                                                    <option value="">Select .....</option>
-                                                    <option value="add_new" style="color: #41cac0 !important;"><?php echo lang('add_new'); ?></option>
+                                                    <option value="">Selecionar .....</option>
+                                                    <!--<option value="add_new" style="color: #41cac0 !important;"><?php echo lang('add_new'); ?></option>-->
                                                     <?php foreach ($patients as $patient) { ?>
                                                         <option value="<?php echo $patient->id; ?>" <?php
                                                         if (!empty($payment->patient)) {
@@ -114,27 +114,27 @@
                                                 <div class="col-md-9"> 
                                                     <select class="form-control m-bot15" name="p_gender" value=''>
 
-                                                        <option value="Male" <?php
-                                                        if (!empty($patient->sex)) {
-                                                            if ($patient->sex == 'Male') {
-                                                                echo 'selected';
+                                                        <option value="Masculino" <?php
+                                                            if (!empty($patient->sex)) {
+                                                                if ($patient->sex == 'Masculino') {
+                                                                    echo 'selected';
+                                                                }
                                                             }
-                                                        }
-                                                        ?> > Male </option>   
-                                                        <option value="Female" <?php
-                                                        if (!empty($patient->sex)) {
-                                                            if ($patient->sex == 'Female') {
-                                                                echo 'selected';
+                                                            ?> > Masculino </option>
+                                                            <option value="Feminino" <?php
+                                                            if (!empty($patient->sex)) {
+                                                                if ($patient->sex == 'Feminino') {
+                                                                    echo 'selected';
+                                                                }
                                                             }
-                                                        }
-                                                        ?> > Female </option>
-                                                        <option value="Others" <?php
-                                                        if (!empty($patient->sex)) {
-                                                            if ($patient->sex == 'Others') {
-                                                                echo 'selected';
+                                                            ?> > Feminino </option>
+                                                            <option value="Outros" <?php
+                                                            if (!empty($patient->sex)) {
+                                                                if ($patient->sex == 'Outros') {
+                                                                    echo 'selected';
+                                                                }
                                                             }
-                                                        }
-                                                        ?> > Others </option>
+                                                            ?> > Outros </option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -146,7 +146,7 @@
                                             </div>
                                             <div class="col-md-9"> 
                                                 <select class="form-control m-bot15 js-example-basic-single" name="doctor" value=''>  
-                                                    <option value="">Select .....</option>
+                                                    <option value="">Selecionar .....</option>
                                                     <?php foreach ($doctors as $doctor) { ?>
                                                         <option value="<?php echo $doctor->id; ?>"<?php
                                                         if (!empty($payment->doctor)) {
@@ -221,10 +221,47 @@
                                         </div>
 
                                         <div class="col-md-12 panel">
+                                <label for="exampleInputEmail1"><?php echo lang('status_appointment'); ?></label>
+                                <select class="form-control m-bot15" name="status_appointment" value=''>
+
+                                    <option value="AGENDADO" <?php
+                                    if (!empty($appointment->status_appointment)) {
+                                        if ($appointment->status_appointment == 'AGENDADO') {
+                                            echo 'selected';
+                                        }
+                                    }
+                                    ?> > AGENDADO </option>
+                                    <option value="CONFIRMADO" <?php
+                                    if (!empty($appointment->status_appointment)) {
+                                        if ($appointment->status_appointment == 'CONFIRMADO') {
+                                            echo 'selected';
+                                        }
+                                    }
+                                    ?> > CONFIRMADO </option>
+                                    
+                                    <option value="ATENDIDO" <?php
+                                    if (!empty($appointment->status_appointment)) {
+                                        if ($appointment->status_appointment == 'ATENDIDO') {
+                                            echo 'selected';
+                                        }
+                                    }
+                                    ?> > ATENDIDO </option>
+                                    
+                                    <option value="CANCELADO" <?php
+                                    if (!empty($appointment->status_appointment)) {
+                                        if ($appointment->status_appointment == 'CANCELADO') {
+                                            echo 'selected';
+                                        }
+                                    }
+                                    ?> > CANCELADO </option>
+                                </select>
+                            </div>
+
+                                        <div class="col-md-12 panel">
                                             <div class="col-md-3 payment_label"> 
                                             </div>
                                             <div class="col-md-9"> 
-                                                <input type="checkbox" name="sms" value="sms"> <?php echo lang('send_sms') ?><br>
+                                                <!--<input type="checkbox" name="sms" value="sms"> <?php echo lang('send_sms') ?><br>-->
                                             </div>
                                         </div>
 
